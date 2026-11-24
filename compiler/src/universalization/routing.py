@@ -552,6 +552,116 @@ class BDBFuncMI(BDBFunc, CompilerMI):
         return res
 
 
+# ---------------------------------------------------------------------------
+# [O2] Incremental generation of the permutation/copy network.
+#
+# The original universalizer does, for every layer:
+#
+#     bf   = BDBFuncMI(f, le=le)          # compiles input Benes, copy network
+#                                         # and output Benes all at once
+#     perm = optimize(bf.canonical())     # + a full copy of the column list
+#                                         # + a filtered copy of that list
+#
+# so the three sub-networks, the canonical list and the optimized list are
+# all alive at the same time. iter_bdb_columns() yields the same columns,
+# in the same order, one at a time:
+#   * the three sub-networks are compiled one after the other and each is
+#     dropped as soon as its columns have been yielded;
+#   * no intermediate canonical/optimized lists are built: identity public
+#     shuffles (what optimize() removes) are filtered on the fly;
+#   * every column is converted to a compact array('i') (4 bytes per entry
+#     instead of a list of Python int objects).
+# Each item is ("pub", array) for a PublicShuffle, or ("sec", [(offset,
+# array), ...]) for a SecretShuffles column.
+# ---------------------------------------------------------------------------
+from array import array as _array
+
+
+def _compact_column(col):
+    if isinstance(col, PublicShuffle):
+        if list(col) == list(range(len(col))):
+            return None  # identity wiring: removed, exactly like optimize()
+        return ("pub", _array("i", col))
+    if isinstance(col, SecretShuffles):
+        return ("sec", [(off, _array("i", p)) for off, p in col.items()])
+    raise RuntimeError("unknown routing column")
+
+
+def _bdb_split(f):
+    """Same decomposition as BDBFunc._compile (input perm, dup pattern, output perm)."""
+    n = len(f)
+    pos = defaultdict(list)
+    for i, a in enumerate(f):
+        pos[a].append(i)
+    missing = set(range(n)) - set(f)
+    pi, pif = [], []
+    start = defaultdict(int)
+    for a, cs in pos.items():
+        cs = list(cs)
+        c = len(cs)
+        start[a] = len(pi)
+        pi.append(a)
+        pif += [a] * c
+        cs.pop()
+        for i in range(c - 1):
+            pi.append(missing.pop())
+            cs.pop()
+    pi2 = []
+    for a in f:
+        pi2.append(start[a])
+        start[a] += 1
+    return pi, pif, pi2
+
+
+def iter_bdb_columns(f, le):
+    """Lazily yield the optimized canonical columns of BDBFuncMI(f, le)."""
+    f = tuple(map(int, f))
+    pi, pif, pi2 = _bdb_split(f)
+    del f
+    for make in (lambda: BenesPermMI(pi, le=le),
+                 lambda: ForwardDupMI(pif, le=le),
+                 lambda: BenesPermMI(pi2, le=le)):
+        part = make()
+        cols = part.cols
+        del part
+        while cols:
+            # consume the list so that each column is freed as soon as
+            # it has been yielded
+            col = cols.pop(0)
+            item = _compact_column(col)
+            del col
+            if item is not None:
+                yield item
+        del cols
+
+
+def test_iter_bdb_columns(trials=200, seed=0):
+    """Check that iter_bdb_columns == optimize(BDBFuncMI(f).canonical())."""
+    import random as _r
+    rng = _r.Random(seed)
+    for _ in range(trials):
+        m = rng.randrange(1, 9)
+        le = rng.randrange(1, 7)
+        n = 2 ** m
+        kind = rng.randrange(3)
+        if kind == 0:
+            f = list(range(n)); rng.shuffle(f)
+        elif kind == 1:
+            f = [rng.randrange(n) for _ in range(n)]
+        else:
+            f = [rng.randrange(n) for _ in range(n // 2)] + [0] * (n - n // 2)
+        ref = optimize(BDBFuncMI(f, le=le).canonical())
+        got = list(iter_bdb_columns(f, le))
+        assert len(ref) == len(got), (m, le)
+        for a, (kind_, b) in zip(ref, got):
+            if isinstance(a, PublicShuffle):
+                assert kind_ == "pub" and list(a) == list(b)
+            else:
+                assert kind_ == "sec"
+                assert [(o, list(p)) for o, p in a.items()] == [(o, list(p)) for o, p in b]
+    return True
+
+
 def test():
     for m in range(1, 8):
         print("m =", m)
