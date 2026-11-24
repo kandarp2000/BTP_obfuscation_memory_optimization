@@ -5,6 +5,44 @@ from . import routing
 import math
 import random
 import time
+import tracemalloc
+
+
+class _MemProfiler:
+    """[Memory-optimization project] per-phase memory probe for universalize().
+
+    Uses tracemalloc, so only memory allocated *inside* universalize() is
+    counted (the input DFG built by earlier passes is not). For each phase we
+    report the memory still held at the end of the phase ("current") and the
+    highest value reached during the phase ("peak").
+    """
+    def __init__(self, enabled):
+        self.enabled = enabled
+        self.rows = []
+        if enabled:
+            tracemalloc.start()
+            self.t = time.time()
+
+    def phase(self, name):
+        if not self.enabled:
+            return
+        cur, peak = tracemalloc.get_traced_memory()
+        now = time.time()
+        self.rows.append((name, cur / 2**20, peak / 2**20, now - self.t))
+        print(f"[mem] {name:32s} current={cur / 2**20:9.2f} MB  "
+              f"peak={peak / 2**20:9.2f} MB  time={now - self.t:7.2f} s", flush=True)
+        tracemalloc.reset_peak()
+        self.t = time.time()
+
+    def finish(self):
+        if not self.enabled:
+            return
+        tracemalloc.stop()
+        peak = max(r[2] for r in self.rows)
+        cur = self.rows[-1][1]
+        tot = sum(r[3] for r in self.rows)
+        print(f"[mem] universalize TOTAL{'':16s} current={cur:9.2f} MB  "
+              f"peak={peak:9.2f} MB  time={tot:7.2f} s", flush=True)
 
 def universalize(dfg:DFG, config) -> DFG :
 
@@ -13,8 +51,11 @@ def universalize(dfg:DFG, config) -> DFG :
 
     #dfg.show_dfg(filename="universalize_0")
 
+    prof = _MemProfiler(getattr(config, "profile_mem", False))
+
     start_rectangularize_time = time.time()
     layers = rectangularize(dfg, config)
+    prof.phase("rectangularize")
 
     if config.stats:
         if config.depth == 0 or config.depth <= len(layers):
@@ -27,22 +68,27 @@ def universalize(dfg:DFG, config) -> DFG :
     #dfg.show_dfg(filename="universalize_1")
 
     add_depth_padding(dfg, layers, config)
+    prof.phase("add_depth_padding")
 
     #dfg.show_dfg(filename="universalize_2")
 
     add_input_masking_layer(dfg, layers, config)
+    prof.phase("add_input_masking_layer")
 
     #dfg.show_dfg(filename="universalize_3")
 
     propagate_outputs_to_last_layer(dfg, layers, config)
+    prof.phase("propagate_outputs_to_last_layer")
 
     #dfg.show_dfg(filename="universalize_4")
 
     equalize_layers(dfg, layers, config)
+    prof.phase("equalize_layers")
 
     #dfg.show_dfg(filename="universalize_5")
 
     match_layers_inputs_outputs(dfg, layers,config)
+    prof.phase("match_layers_inputs_outputs")
     rectangularize_total_time = time.time() - start_rectangularize_time
 
     if config.stats:
@@ -52,13 +98,89 @@ def universalize(dfg:DFG, config) -> DFG :
     #dfg.show_dfg(filename="universalize_6")
 
     add_permutation(dfg, layers, config)
+    prof.phase("add_permutation")
 
     #dfg.show_dfg(filename="universalize_7")
 
     dfg.check_dfg_integrity()
+    prof.phase("check_dfg_integrity")
 
+    if getattr(config, "opt_o4", False):
+        compact_dfg_for_lowering(dfg)
+        prof.phase("compact_dfg_for_lowering")
+    prof.finish()
 
     return dfg
+
+class _CompactEdges(dict):
+    """[O4] Replacement for DFG.forward_edges after universalization.
+
+    The original defaultdict(set) keeps an (empty) set for every node that
+    has no successor and silently allocates a new one for every node that
+    is merely looked up (e.g. all nodes of the last layer during
+    scheduling). Here a missing key returns one shared empty frozenset
+    *without* storing anything.
+    """
+    __slots__ = ()
+    _EMPTY = frozenset()
+    def __missing__(self, key):
+        return self._EMPTY
+
+
+def compact_dfg_for_lowering(dfg:DFG):
+    """[O4] Compact the bookkeeping that universalization hands to lowering.
+
+    Profiling showed that the memory left at the end of universalize() is
+    dominated by the routing gates themselves (the output) plus the DFG's
+    edge structures. After universalization the only remaining user of the
+    DFG is DFG.to_LLIR(), which needs |nodes|, |forward_edges| (read-only)
+    and the program inputs/outputs; |backward_edges| is never used again.
+
+      * backward_edges is released (one dict entry per variable of the
+        universalized program, i.e. one per routing-gate output).
+      * dfg.prog, the pre-clusterization MLIRProgram, is replaced by a
+        light object that only keeps its |inputs| (the only field read
+        afterwards, by DFG.to_LLIR). The original keeps one wrapper MLMI +
+        MLS + lists for every HLI of the source program alive until the
+        end of compilation.
+      * forward_edges keeps every non-empty successor set *as is* (the
+        scheduler calls todo.update(<set>), and CPython's set-to-set update
+        depends on the internal layout of the set, so replacing the sets by
+        tuples or frozensets would change the scheduling order and thus the
+        bytecode). Only the empty sets are dropped: these are the
+        before-layer sets cleared by add_permutation and the placeholders
+        created by defaultdict look-ups. Updating with an empty set and
+        with the shared empty frozenset are both no-ops, so the scheduling
+        order is unchanged.
+    """
+    # release first, so that building the compact edge dict below does not
+    # raise the peak
+    dfg.backward_edges = {}
+    dfg.prog = _ProgInputs(dfg.prog.inputs)
+    old_edges = dfg.forward_edges
+    dfg.forward_edges = None
+    dfg.forward_edges = _CompactEdges(
+        (node, succ) for node, succ in old_edges.items() if succ)
+    del old_edges
+
+
+class _ProgInputs:
+    """[O4] What DFG.to_LLIR still needs from the original MLIRProgram."""
+    __slots__ = ("inputs",)
+    def __init__(self, inputs):
+        self.inputs = inputs
+
+
+# [O1] Shared padding constant. Rectangularization pads every dummy output
+# with "MOV out, 0"; the original code allocates a fresh ImmOperand(0) for
+# each one (thousands per program). ImmOperand is an immutable value
+# (compared and hashed by value, never modified by later passes), so with
+# -opt-o1 all padding instructions share one instance.
+_ZERO = ImmOperand(0)
+
+def _zero(config):
+    return _ZERO if getattr(config, "opt_o1", False) else ImmOperand(0)
+
 
 def add_depth_padding(dfg:DFG, layers, config):
     """Add layers so that the number of layers is at config.depth"""
@@ -110,7 +232,7 @@ def add_input_masking_layer(dfg:DFG, layers, config):
         out = MemOperand(dfg.memory_count)
         dfg.memory_count += 1
         node.outputs.append(out)
-        node.seq.instrs.append(HLI(Opcode.MOV, out, ImmOperand(0)))
+        node.seq.instrs.append(HLI(Opcode.MOV, out, _zero(config)))
         dfg.backward_edges[out] = node
 
     # Adding forward edges from this initial layer to the rest of the
@@ -292,7 +414,7 @@ def match_layers_inputs_outputs(dfg:DFG, layers, config):
                         # Returning a 0
                         new_output = MemOperand(dfg.memory_count)
                         dfg.memory_count += 1
-                        mlmi.seq.instrs.append(HLI(Opcode.MOV, new_output, ImmOperand(0)))
+                        mlmi.seq.instrs.append(HLI(Opcode.MOV, new_output, _zero(config)))
                         mlmi.outputs.append(new_output)
                         dfg.backward_edges[new_output] = mlmi
 
@@ -302,6 +424,8 @@ def match_layers_inputs_outputs(dfg:DFG, layers, config):
 
 
 def add_permutation(dfg:DFG, layers, config):
+    o2 = getattr(config, "opt_o2", False)
+    o3 = getattr(config, "opt_o3", False)
     for i in range(len(layers)-1):
         before_layer = layers[i]
         after_layer  = layers[i+1]
@@ -321,16 +445,57 @@ def add_permutation(dfg:DFG, layers, config):
             perm_layer_size = 2**(1+int(math.log2(perm_layer_min_size)))
 
         inputs_pos = { m:i for i,m in enumerate(inputs) }
-        inputs_pos_rev = { i:m for i,m in enumerate(inputs) }
+        if not o3:
+            # (never used; with -opt-o3 it is simply not built)
+            inputs_pos_rev = { i:m for i,m in enumerate(inputs) }
         perm_outputs = [ inputs_pos[m] for m in outputs ]
         perm_outputs += [ 0 ] * (perm_layer_size - len(perm_outputs))
+        if o3:
+            del inputs_pos  # [O3] no longer needed for this layer
 
         # Padding inputs so that it's the same length as outputs
         inputs += [ImmOperand(0)] * (perm_layer_size - len(inputs))
 
         le = math.log2(config.l_in)
-        bf = routing.BDBFuncMI(perm_outputs, le=le)
-        perm = routing.optimize(bf.canonical())
+        if o2:
+            # [O2] columns are generated lazily, one at a time, in compact form
+            perm = routing.iter_bdb_columns(perm_outputs, le)
+        else:
+            bf = routing.BDBFuncMI(perm_outputs, le=le)
+            perm = [ ("pub", row) if isinstance(row, routing.PublicShuffle) else
+                     ("sec", list(row.items())) if isinstance(row, routing.SecretShuffles) else
+                     (None, row)
+                     for row in routing.optimize(bf.canonical()) ]
+        if getattr(config, "debug_routing", False):
+            # full independent check of the routing program for this layer
+            assert tuple(perm_outputs) == routing.BDBFuncMI(perm_outputs, le=le).apply()
+
+        def apply_secret_perm_inplace(inputs, off, p, inputs_checker):
+            """[O3] Same gate as apply_secret_perm, without copying the whole
+            wire list (and checker list) for every gate: only the len(p)
+            wires of the gate's window are read and overwritten. Nodes,
+            MemOperands and instructions are created in the same order as in
+            the original, so the generated program is identical."""
+            k = len(p)
+            window = inputs[off:off+k]
+            window_chk = inputs_checker[off:off+k]
+            node = MLMI(MLS([]), [], [])
+            dfg.nodes.add(node)
+            node.inputs = [ m for m in window if isinstance(m,MemOperand)]
+            for i,idx in enumerate(p):
+                out = MemOperand(dfg.memory_count)
+                dfg.memory_count += 1
+                node.seq.instrs.append(HLI(Opcode.MOV, out, window[idx]))
+                node.outputs.append(out)
+
+                inputs[off+i] = out
+                inputs_checker[off+i] = window_chk[idx]
+
+                dfg.backward_edges[out] = node
+
+            for m in node.inputs:
+                if m in dfg.backward_edges:
+                    dfg.forward_edges[dfg.backward_edges[m]].add(node)
 
         def apply_secret_perm(inputs, off, p, inputs_checker):
             new_inputs = list(inputs)
@@ -365,17 +530,19 @@ def add_permutation(dfg:DFG, layers, config):
         inputs_checker = [ i for i,_ in enumerate(inputs) ]
 
         # Converting the permutation into nodes in the DFG
-        for row in perm:
-            if isinstance(row, routing.PublicShuffle):
+        gate = apply_secret_perm_inplace if o3 else apply_secret_perm
+        for kind, row in perm:
+            if kind == "pub":
                 inputs = [ inputs[i] for i in row ]
                 inputs_checker = [ inputs_checker[i] for i in row ]
 
-            elif isinstance(row, routing.SecretShuffles):
-                for off, p in row.items():
-                    apply_secret_perm(inputs, off, p, inputs_checker)
+            elif kind == "sec":
+                for off, p in row:
+                    gate(inputs, off, p, inputs_checker)
 
             else:
                 assert False
+        del perm  # [O2/O3] routing data of this layer is no longer needed
 
         if perm_outputs != inputs_checker:
             print("Error in the permutation.")
