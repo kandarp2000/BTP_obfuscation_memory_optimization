@@ -23,3 +23,19 @@ compiler/schwaemm/schwaemm.egg-info
 *.dat
 *.gv
 *.pdf
+# Project additions
+!report/**/*.pdf
+!REPORT.pdf
+!*.pptx
+!BTP_Final_Presentation.pdf
+!results/**
+!verification/results/**
+*.aux
+*.toc
+*.lof
+*.lot
+*.log
+!results/*.log
+!verification/results/**/*.log
+runtime/interpreter
+env_shims/schwaemm/libschwaemm.so
