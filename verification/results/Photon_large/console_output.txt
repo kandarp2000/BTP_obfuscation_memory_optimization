@@ -1,0 +1,39 @@
+== Photon  SE=large (l_in=32, l_out=32, r=160, s=128)  seed=1
+-- warm-up (tiny program, not measured) ...
+-- compiling with ORIGINAL  ...
+   peak RSS    710.5 MB   wall   561.7 s
+-- compiling with OURS1 -seed 1 -opt-all ...
+   peak RSS    663.5 MB   wall   564.4 s
+-- compiling with OURS2 -seed 1 -opt-all -opt-o5 ...
+   peak RSS    599.2 MB   wall   515.0 s
+-- functional check: 2 random inputs, interpreter (SE=large) vs plain C
+
+========================================================================================
+                                            ORIGINAL             OURS1             OURS2
+flags                                              -          -opt-all  -opt-all -opt-o5
+peak memory (MB)                               710.5             663.5             599.2
+change vs original                             +0.0%             -6.6%            -15.7%
+memory saved (MB)                                0.0              47.0             111.3
+wall time (s)                                  561.7             564.4             515.0
+final MLMIs                                    20711             20711             20711
+LLMIs (instructions)                               -             20711             20711
+bytecode size (bytes)                     10,045,209        10,045,209        10,045,209
+same output as original?                   reference               YES               YES
+functional tests passed                          2/2               2/2               2/2
+----------------------------------------------------------------------------------------
+peak memory per phase (MB):
+  frontend (C -> HLIR)                         187.8             188.7             188.5
+  clusterization (HLIR -> MLIR)                196.3             197.1             196.9
+  universalize: rectangularize                 201.6             198.8             198.7
+  universalize: permutation networks             372.9             368.1             367.7
+  lowering (MLIR -> LLIR)                      592.4             561.6             561.5
+  serialization (LLIR -> bytecode)             711.0             663.6             599.3
+time per phase (s):
+  frontend (C -> HLIR)                         71.98             69.86              64.1
+  clusterization (HLIR -> MLIR)               421.87            428.31            382.37
+  universalize: rectangularize                  7.05              6.91              6.67
+  universalize: permutation networks             50.09             49.78             52.07
+  lowering (MLIR -> LLIR)                      10.24              9.72              9.99
+  serialization (LLIR -> bytecode)              5.93              5.25              3.92
+========================================================================================
+results saved in BTP/verification/results/Photon_large

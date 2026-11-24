@@ -1,0 +1,196 @@
+{
+ "program": "Photon",
+ "source": "tests/automated/programs/Photon.c",
+ "se": "large",
+ "seed": 1,
+ "common_flags": [
+  "-r",
+  "160",
+  "-lin",
+  "32",
+  "-lout",
+  "32",
+  "-s",
+  "128",
+  "-stats"
+ ],
+ "machine": "16 cpus, 7.5 GB RAM",
+ "python": "3.12.3",
+ "runs": {
+  "original": {
+   "flags": "",
+   "peak_rss_mb": 710.8,
+   "wall_s": 667.79,
+   "all_peaks_mb": [
+    710.8
+   ],
+   "all_walls_s": [
+    667.79
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 82.53,
+     "peak_rss_mb": 187.8
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 505.82,
+     "peak_rss_mb": 196.3
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 8.87,
+     "peak_rss_mb": 201.7
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 59.87,
+     "peak_rss_mb": 372.9
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 11.76,
+     "peak_rss_mb": 592.3
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 6.17,
+     "peak_rss_mb": 710.7
+    }
+   ],
+   "stats": {
+    "hlis": 47248,
+    "depth": 162,
+    "width": 14,
+    "total_s": 666.14,
+    "mlmis_final": 20711
+   },
+   "bytes": 10045209,
+   "masked_sha256": "18166aa19f63f4bc3e0a53200ada24d3fc198250851e301946ae8f894f1d329c",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/Photon_demo/original.bin"
+  },
+  "memoryoptimized": {
+   "flags": "-seed 1 -opt-all -opt-o5",
+   "peak_rss_mb": 598.2,
+   "wall_s": 632.24,
+   "all_peaks_mb": [
+    598.2
+   ],
+   "all_walls_s": [
+    632.24
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 85.81,
+     "peak_rss_mb": 188.6
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 462.9,
+     "peak_rss_mb": 196.7
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 8.91,
+     "peak_rss_mb": 198.8
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 63.1,
+     "peak_rss_mb": 367.8
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 12.17,
+     "peak_rss_mb": 562.1
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 5.24,
+     "peak_rss_mb": 598.6
+    }
+   ],
+   "stats": {
+    "hlis": 47248,
+    "depth": 162,
+    "width": 14,
+    "llmis": 20711,
+    "total_s": 630.59,
+    "mlmis_final": 20711
+   },
+   "bytes": 10045209,
+   "masked_sha256": "18166aa19f63f4bc3e0a53200ada24d3fc198250851e301946ae8f894f1d329c",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/Photon_demo/memoryoptimized.bin",
+   "vs_original": {
+    "identical": true,
+    "differing_bytes": 63,
+    "differing_outside_key_header": 0
+   }
+  }
+ },
+ "functional": {
+  "tests": 2,
+  "n_inputs": 512,
+  "n_outputs": 256,
+  "passed": {
+   "original": 2,
+   "memoryoptimized": 2
+  },
+  "examples": [
+   {
+    "inputs_first4": [
+     "577090037",
+     "2444712010",
+     "3639700191",
+     "3445702192"
+    ],
+    "plain_C_first4": [
+     "2139955123",
+     "901463676",
+     "4203210805",
+     "1470143756"
+    ],
+    "original_first4": [
+     "2139955123",
+     "901463676",
+     "4203210805",
+     "1470143756"
+    ],
+    "memoryoptimized_first4": [
+     "2139955123",
+     "901463676",
+     "4203210805",
+     "1470143756"
+    ]
+   },
+   {
+    "inputs_first4": [
+     "3555237170",
+     "1270184796",
+     "53179176",
+     "2635722309"
+    ],
+    "plain_C_first4": [
+     "4262218623",
+     "1272359382",
+     "2856978508",
+     "3264862639"
+    ],
+    "original_first4": [
+     "4262218623",
+     "1272359382",
+     "2856978508",
+     "3264862639"
+    ],
+    "memoryoptimized_first4": [
+     "4262218623",
+     "1272359382",
+     "2856978508",
+     "3264862639"
+    ]
+   }
+  ]
+ }
+}
