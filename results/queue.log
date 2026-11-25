@@ -1,0 +1,398 @@
+== 19:02:39 light memory runs
+AES            small   rep=0 ok=True wall=5.6s rss=134MB univ_peak=- digest=29874fb809d4
+AES            medium  rep=0 ok=True wall=4.7s rss=79MB univ_peak=- digest=19f8e04b0f9e
+AES            large   rep=0 ok=True wall=3.6s rss=58MB univ_peak=- digest=2a9bf1c75414
+AES            xlarge  rep=0 ok=True wall=3.6s rss=47MB univ_peak=- digest=f220378bd624
+Ascon          small   rep=0 ok=True wall=30.0s rss=994MB univ_peak=- digest=0f01f89c2ef1
+Ascon          medium  rep=0 ok=True wall=22.5s rss=509MB univ_peak=- digest=fe308eaeee5f
+Ascon          large   rep=0 ok=True wall=11.6s rss=175MB univ_peak=- digest=c47a7cb15251
+Ascon          xlarge  rep=0 ok=True wall=10.9s rss=118MB univ_peak=- digest=784e7e79d852
+TinyJambu      small   rep=0 ok=True wall=2.8s rss=120MB univ_peak=- digest=485a4cc70947
+TinyJambu      medium  rep=0 ok=True wall=1.8s rss=72MB univ_peak=- digest=e9d9083f4931
+TinyJambu      large   rep=0 ok=True wall=1.9s rss=68MB univ_peak=- digest=0ad8c6b4fd0f
+TinyJambu      xlarge  rep=0 ok=True wall=2.4s rss=72MB univ_peak=- digest=eddc52bbe38a
+tracingAES     small   rep=0 ok=True wall=11.9s rss=315MB univ_peak=- digest=6ad24272b390
+tracingAES     medium  rep=0 ok=True wall=8.2s rss=131MB univ_peak=- digest=f0db7806bf3c
+tracingAES     large   rep=0 ok=True wall=10.2s rss=131MB univ_peak=- digest=2c45c9ebd56c
+tracingAES     xlarge  rep=0 ok=True wall=10.5s rss=85MB univ_peak=- digest=a8fc7778cda7
+sum_tree       small   rep=0 ok=True wall=7.9s rss=253MB univ_peak=- digest=a36e3523fded
+sum_tree       medium  rep=0 ok=True wall=1.5s rss=70MB univ_peak=- digest=9e3ae8c56039
+sum_tree       large   rep=0 ok=True wall=5.8s rss=130MB univ_peak=- digest=53fa5acd65d8
+sum_tree       xlarge  rep=0 ok=True wall=21.7s rss=135MB univ_peak=- digest=a18a64f1f660
+findmax_tree   small   rep=0 ok=True wall=7.5s rss=228MB univ_peak=- digest=21d9bf20ba33
+findmax_tree   medium  rep=0 ok=True wall=1.7s rss=72MB univ_peak=- digest=63bcb268dafe
+findmax_tree   large   rep=0 ok=True wall=4.7s rss=115MB univ_peak=- digest=9aa398e1a356
+findmax_tree   xlarge  rep=0 ok=True wall=21.7s rss=137MB univ_peak=- digest=0f3d18fef0ed
+AES            small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      medium  rep=0 ok=False wall=0.2s rss=21MB univ_peak=- digest=
+TinyJambu      large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+== 19:04:37 ablation small SE
+AES            small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+TinyJambu      small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+tracingAES     small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+sum_tree       small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+findmax_tree   small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+== 19:04:38 retained memory after universalize, optimized
+AES            small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+AES            xlarge  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          small   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          medium  rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+Ascon          large   rep=0 ok=False wall=0.1s rss=21MB univ_peak=- digest=
+== relaunch Mon Nov  9 19:05:04 Asia 2026
+== 19:05:06 light memory runs
+nothing to do
+AES            small   rep=0 ok=True wall=4.9s rss=125MB univ_peak=- digest=29874fb809d4
+AES            medium  rep=0 ok=True wall=3.9s rss=75MB univ_peak=- digest=19f8e04b0f9e
+AES            large   rep=0 ok=True wall=3.6s rss=55MB univ_peak=- digest=2a9bf1c75414
+AES            xlarge  rep=0 ok=True wall=3.4s rss=46MB univ_peak=- digest=f220378bd624
+Ascon          small   rep=0 ok=True wall=29.3s rss=936MB univ_peak=- digest=0f01f89c2ef1
+Ascon          medium  rep=0 ok=True wall=23.2s rss=469MB univ_peak=- digest=fe308eaeee5f
+Ascon          large   rep=0 ok=True wall=11.6s rss=163MB univ_peak=- digest=c47a7cb15251
+Ascon          xlarge  rep=0 ok=True wall=10.4s rss=107MB univ_peak=- digest=784e7e79d852
+TinyJambu      small   rep=0 ok=True wall=2.6s rss=110MB univ_peak=- digest=485a4cc70947
+TinyJambu      medium  rep=0 ok=True wall=1.7s rss=67MB univ_peak=- digest=e9d9083f4931
+TinyJambu      large   rep=0 ok=True wall=1.9s rss=61MB univ_peak=- digest=0ad8c6b4fd0f
+TinyJambu      xlarge  rep=0 ok=True wall=2.4s rss=65MB univ_peak=- digest=eddc52bbe38a
+tracingAES     small   rep=0 ok=True wall=12.1s rss=297MB univ_peak=- digest=6ad24272b390
+tracingAES     medium  rep=0 ok=True wall=7.9s rss=120MB univ_peak=- digest=f0db7806bf3c
+tracingAES     large   rep=0 ok=True wall=9.7s rss=122MB univ_peak=- digest=2c45c9ebd56c
+tracingAES     xlarge  rep=0 ok=True wall=10.6s rss=78MB univ_peak=- digest=a8fc7778cda7
+sum_tree       small   rep=0 ok=True wall=5.6s rss=240MB univ_peak=- digest=a36e3523fded
+sum_tree       medium  rep=0 ok=True wall=1.4s rss=66MB univ_peak=- digest=9e3ae8c56039
+sum_tree       large   rep=0 ok=True wall=5.9s rss=124MB univ_peak=- digest=53fa5acd65d8
+sum_tree       xlarge  rep=0 ok=True wall=20.9s rss=127MB univ_peak=- digest=a18a64f1f660
+findmax_tree   small   rep=0 ok=True wall=5.1s rss=215MB univ_peak=- digest=21d9bf20ba33
+findmax_tree   medium  rep=0 ok=True wall=1.6s rss=67MB univ_peak=- digest=63bcb268dafe
+findmax_tree   large   rep=0 ok=True wall=4.9s rss=108MB univ_peak=- digest=9aa398e1a356
+findmax_tree   xlarge  rep=0 ok=True wall=21.8s rss=129MB univ_peak=- digest=0f3d18fef0ed
+AES            small   rep=0 ok=True wall=4.8s rss=125MB univ_peak=- digest=29874fb809d4
+AES            medium  rep=0 ok=True wall=3.9s rss=75MB univ_peak=- digest=19f8e04b0f9e
+AES            large   rep=0 ok=True wall=3.2s rss=55MB univ_peak=- digest=2a9bf1c75414
+AES            xlarge  rep=0 ok=True wall=3.3s rss=46MB univ_peak=- digest=f220378bd624
+Ascon          small   rep=0 ok=True wall=11.3s rss=187MB univ_peak=- digest=08e325029849
+Ascon          medium  rep=0 ok=True wall=10.3s rss=145MB univ_peak=- digest=737985fd7438
+Ascon          large   rep=0 ok=True wall=10.1s rss=104MB univ_peak=- digest=6139f104aeab
+Ascon          xlarge  rep=0 ok=True wall=11.6s rss=107MB univ_peak=- digest=784e7e79d852
+TinyJambu      small   rep=0 ok=True wall=2.7s rss=110MB univ_peak=- digest=485a4cc70947
+TinyJambu      medium  rep=0 ok=True wall=2.0s rss=67MB univ_peak=- digest=e9d9083f4931
+TinyJambu      large   rep=0 ok=True wall=2.1s rss=61MB univ_peak=- digest=0ad8c6b4fd0f
+TinyJambu      xlarge  rep=0 ok=True wall=2.4s rss=65MB univ_peak=- digest=eddc52bbe38a
+tracingAES     small   rep=0 ok=True wall=8.3s rss=129MB univ_peak=- digest=b3f770e38410
+tracingAES     medium  rep=0 ok=True wall=8.3s rss=120MB univ_peak=- digest=f0db7806bf3c
+tracingAES     large   rep=0 ok=True wall=8.1s rss=78MB univ_peak=- digest=ad2951104d1b
+tracingAES     xlarge  rep=0 ok=True wall=10.9s rss=78MB univ_peak=- digest=a8fc7778cda7
+sum_tree       small   rep=0 ok=True wall=2.6s rss=132MB univ_peak=- digest=5bfc7ed34f67
+sum_tree       medium  rep=0 ok=True wall=1.6s rss=66MB univ_peak=- digest=9e3ae8c56039
+sum_tree       large   rep=0 ok=True wall=2.7s rss=56MB univ_peak=- digest=7efe3df5d915
+sum_tree       xlarge  rep=0 ok=True wall=21.5s rss=127MB univ_peak=- digest=fee30f46c6c4
+findmax_tree   small   rep=0 ok=True wall=5.0s rss=213MB univ_peak=- digest=da949c313c15
+findmax_tree   medium  rep=0 ok=True wall=1.6s rss=67MB univ_peak=- digest=63bcb268dafe
+findmax_tree   large   rep=0 ok=True wall=4.9s rss=107MB univ_peak=- digest=36b68311e407
+findmax_tree   xlarge  rep=0 ok=True wall=22.5s rss=128MB univ_peak=- digest=b4b1c41fc503
+== 19:08:29 ablation small SE
+AES            small   rep=0 ok=True wall=5.4s rss=134MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=0 ok=True wall=30.9s rss=990MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=0 ok=True wall=2.8s rss=120MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=0 ok=True wall=13.8s rss=315MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=0 ok=True wall=8.2s rss=253MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=0 ok=True wall=6.8s rss=228MB univ_peak=- digest=21d9bf20ba33
+AES            small   rep=0 ok=True wall=4.8s rss=134MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=0 ok=True wall=29.7s rss=991MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=0 ok=True wall=2.6s rss=121MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=0 ok=True wall=12.4s rss=316MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=0 ok=True wall=8.6s rss=252MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=0 ok=True wall=7.1s rss=227MB univ_peak=- digest=21d9bf20ba33
+AES            small   rep=0 ok=True wall=4.7s rss=134MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=0 ok=True wall=28.2s rss=991MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=0 ok=True wall=2.5s rss=121MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=0 ok=True wall=12.2s rss=316MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=0 ok=True wall=5.4s rss=252MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=0 ok=True wall=4.9s rss=227MB univ_peak=- digest=21d9bf20ba33
+== 19:10:12 retained memory after universalize, optimized
+AES            small   rep=0 ok=True wall=9.6s rss=157MB univ_peak=41.66 digest=29874fb809d4
+AES            medium  rep=0 ok=True wall=6.0s rss=89MB univ_peak=16.97 digest=19f8e04b0f9e
+AES            large   rep=0 ok=True wall=4.7s rss=62MB univ_peak=8.73 digest=2a9bf1c75414
+AES            xlarge  rep=0 ok=True wall=3.3s rss=48MB univ_peak=2.27 digest=f220378bd624
+Ascon          small   rep=0 ok=True wall=66.4s rss=1164MB univ_peak=364.45 digest=0f01f89c2ef1
+Ascon          medium  rep=0 ok=True wall=50.9s rss=602MB univ_peak=167.9 digest=fe308eaeee5f
+Ascon          large   rep=0 ok=True wall=17.3s rss=205MB univ_peak=43.36 digest=c47a7cb15251
+Ascon          xlarge  rep=0 ok=True wall=13.0s rss=127MB univ_peak=26.28 digest=784e7e79d852
+TinyJambu      small   rep=0 ok=True wall=5.6s rss=138MB univ_peak=34.12 digest=485a4cc70947
+TinyJambu      medium  rep=0 ok=True wall=3.5s rss=79MB univ_peak=15.3 digest=e9d9083f4931
+TinyJambu      large   rep=0 ok=True wall=3.6s rss=77MB univ_peak=13.83 digest=0ad8c6b4fd0f
+TinyJambu      xlarge  rep=0 ok=True wall=3.9s rss=78MB univ_peak=13.6 digest=eddc52bbe38a
+tracingAES     small   rep=0 ok=True wall=22.4s rss=405MB univ_peak=108.84 digest=6ad24272b390
+tracingAES     medium  rep=0 ok=True wall=12.7s rss=151MB univ_peak=34.49 digest=f0db7806bf3c
+tracingAES     large   rep=0 ok=True wall=15.9s rss=148MB univ_peak=33.88 digest=2c45c9ebd56c
+tracingAES     xlarge  rep=0 ok=True wall=13.4s rss=92MB univ_peak=16.42 digest=a8fc7778cda7
+sum_tree       small   rep=0 ok=True wall=18.7s rss=311MB univ_peak=90.54 digest=a36e3523fded
+sum_tree       medium  rep=0 ok=True wall=4.2s rss=80MB univ_peak=17.1 digest=9e3ae8c56039
+sum_tree       large   rep=0 ok=True wall=17.1s rss=159MB univ_peak=39.17 digest=53fa5acd65d8
+sum_tree       xlarge  rep=0 ok=True wall=45.7s rss=158MB univ_peak=38.73 digest=a18a64f1f660
+findmax_tree   small   rep=0 ok=True wall=16.3s rss=275MB univ_peak=79.42 digest=21d9bf20ba33
+findmax_tree   medium  rep=0 ok=True wall=4.7s rss=81MB univ_peak=16.74 digest=63bcb268dafe
+findmax_tree   large   rep=0 ok=True wall=13.2s rss=137MB univ_peak=32.48 digest=9aa398e1a356
+findmax_tree   xlarge  rep=0 ok=True wall=44.6s rss=159MB univ_peak=38.57 digest=0f3d18fef0ed
+== 19:14:01 timing
+AES            small   rep=0 ok=True wall=5.1s rss=134MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=0 ok=True wall=29.9s rss=994MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=0 ok=True wall=2.8s rss=121MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=0 ok=True wall=13.1s rss=315MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=0 ok=True wall=8.4s rss=253MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=0 ok=True wall=7.5s rss=228MB univ_peak=- digest=21d9bf20ba33
+AES            small   rep=1 ok=True wall=4.7s rss=134MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=1 ok=True wall=29.8s rss=994MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=1 ok=True wall=2.5s rss=121MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=1 ok=True wall=11.7s rss=315MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=1 ok=True wall=8.5s rss=253MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=1 ok=True wall=8.0s rss=228MB univ_peak=- digest=21d9bf20ba33
+AES            small   rep=2 ok=True wall=5.5s rss=134MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=2 ok=True wall=29.5s rss=994MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=2 ok=True wall=2.4s rss=121MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=2 ok=True wall=12.5s rss=315MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=2 ok=True wall=8.1s rss=253MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=2 ok=True wall=7.1s rss=228MB univ_peak=- digest=21d9bf20ba33
+AES            small   rep=0 ok=True wall=5.0s rss=125MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=0 ok=True wall=29.8s rss=936MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=0 ok=True wall=2.8s rss=110MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=0 ok=True wall=12.7s rss=297MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=0 ok=True wall=5.9s rss=240MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=0 ok=True wall=5.0s rss=215MB univ_peak=- digest=21d9bf20ba33
+AES            small   rep=1 ok=True wall=5.0s rss=125MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=1 ok=True wall=29.4s rss=936MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=1 ok=True wall=2.4s rss=110MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=1 ok=True wall=11.9s rss=297MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=1 ok=True wall=5.7s rss=240MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=1 ok=True wall=4.8s rss=215MB univ_peak=- digest=21d9bf20ba33
+AES            small   rep=2 ok=True wall=5.3s rss=125MB univ_peak=- digest=29874fb809d4
+Ascon          small   rep=2 ok=True wall=29.4s rss=936MB univ_peak=- digest=0f01f89c2ef1
+TinyJambu      small   rep=2 ok=True wall=2.9s rss=110MB univ_peak=- digest=485a4cc70947
+tracingAES     small   rep=2 ok=True wall=11.6s rss=297MB univ_peak=- digest=6ad24272b390
+sum_tree       small   rep=2 ok=True wall=5.8s rss=240MB univ_peak=- digest=a36e3523fded
+findmax_tree   small   rep=2 ok=True wall=5.1s rss=215MB univ_peak=- digest=21d9bf20ba33
+== 19:20:19 scaling
+depth 400 baseline rss  True rss=130MB retained=None
+depth 400 baseline prof True rss=155MB retained=37.55
+depth 400 optimized rss  True rss=121MB retained=None
+depth 400 optimized prof True rss=152MB retained=32.14
+depth 800 baseline rss  True rss=232MB retained=None
+depth 800 baseline prof True rss=283MB retained=76.68
+depth 800 optimized rss  True rss=217MB retained=None
+depth 800 optimized prof True rss=278MB retained=65.6
+depth 1600 baseline rss  True rss=434MB retained=None
+depth 1600 baseline prof True rss=534MB retained=151.63
+depth 1600 optimized rss  True rss=413MB retained=None
+depth 1600 optimized prof True rss=527MB retained=129.34
+depth 3200 baseline rss  True rss=839MB retained=None
+depth 3200 baseline prof True rss=975MB retained=303.05
+depth 3200 optimized rss  True rss=787MB retained=None
+depth 3200 optimized prof True rss=963MB retained=258.48
+width 4 baseline rss  True rss=124MB retained=None
+width 4 baseline prof True rss=145MB retained=35.19
+width 4 optimized rss  True rss=113MB retained=None
+width 4 optimized prof True rss=141MB retained=29.75
+width 8 baseline rss  True rss=222MB retained=None
+width 8 baseline prof True rss=268MB retained=76.65
+width 8 optimized rss  True rss=211MB retained=None
+width 8 optimized prof True rss=262MB retained=65.34
+width 16 baseline rss  True rss=557MB retained=None
+width 16 baseline prof True rss=703MB retained=206.57
+width 16 optimized rss  True rss=527MB retained=None
+width 16 optimized prof True rss=712MB retained=183.51
+width 32 baseline rss  True rss=1083MB retained=None
+width 32 baseline prof True rss=1315MB retained=413.06
+width 32 optimized rss  True rss=1024MB retained=None
+width 32 optimized prof True rss=1299MB retained=366.57
+width 64 baseline rss  True rss=2165MB retained=None
+width 64 baseline prof True rss=2653MB retained=869.55
+width 64 optimized rss  True rss=2069MB retained=None
+width 64 optimized prof True rss=2563MB retained=776.31
+== 19:29:51 functional tests, light programs
+== 19:33:50 heavy programs, one at a time
+sum_naive      small   rep=0 ok=True wall=118.4s rss=3986MB univ_peak=- digest=f310b773a00c
+sum_naive      medium  rep=0 ok=True wall=47.6s rss=1494MB univ_peak=- digest=289ecb737a2e
+sum_naive      large   rep=0 ok=True wall=32.0s rss=479MB univ_peak=- digest=e83a8b1312b8
+sum_naive      xlarge  rep=0 ok=True wall=16.4s rss=251MB univ_peak=- digest=2e93e2a82f59
+findmax_naive  small   rep=0 ok=True wall=120.1s rss=3991MB univ_peak=- digest=a097e7f1be2e
+findmax_naive  medium  rep=0 ok=True wall=50.2s rss=1495MB univ_peak=- digest=84608d58915a
+findmax_naive  large   rep=0 ok=True wall=33.7s rss=486MB univ_peak=- digest=c5bb959d3c01
+findmax_naive  xlarge  rep=0 ok=True wall=16.8s rss=258MB univ_peak=- digest=6e15a04f6f81
+Photon         small   rep=0 ok=True wall=365.4s rss=3805MB univ_peak=- digest=11f13e332c32
+Photon         medium  rep=0 ok=True wall=339.5s rss=4626MB univ_peak=- digest=204bba3eadad
+Photon         large   rep=0 ok=True wall=216.8s rss=638MB univ_peak=- digest=18166aa19f63
+Photon         xlarge  rep=0 ok=True wall=370.6s rss=1456MB univ_peak=- digest=180526c42e96
+mnist          small   rep=0 ok=False wall=1800.0s rss=0MB univ_peak=- digest=
+== relaunch without mnist Mon Nov  9 20:32:44 Asia 2026
+== 20:32:45 light memory runs
+nothing to do
+nothing to do
+nothing to do
+== 20:32:46 ablation small SE
+nothing to do
+nothing to do
+nothing to do
+== 20:32:46 retained memory after universalize, optimized
+nothing to do
+== 20:32:46 timing
+nothing to do
+nothing to do
+== 20:32:46 scaling
+== 20:32:46 functional tests, light programs
+== 20:32:46 heavy programs, one at a time
+nothing to do
+sum_naive      small   rep=0 ok=True wall=111.0s rss=3834MB univ_peak=- digest=f310b773a00c
+sum_naive      medium  rep=0 ok=True wall=49.2s rss=1413MB univ_peak=- digest=289ecb737a2e
+sum_naive      large   rep=0 ok=True wall=35.7s rss=456MB univ_peak=- digest=e83a8b1312b8
+sum_naive      xlarge  rep=0 ok=True wall=18.0s rss=235MB univ_peak=- digest=2e93e2a82f59
+findmax_naive  small   rep=0 ok=True wall=110.1s rss=3836MB univ_peak=- digest=a097e7f1be2e
+findmax_naive  medium  rep=0 ok=True wall=51.1s rss=1414MB univ_peak=- digest=84608d58915a
+findmax_naive  large   rep=0 ok=True wall=38.3s rss=463MB univ_peak=- digest=c5bb959d3c01
+findmax_naive  xlarge  rep=0 ok=True wall=20.5s rss=242MB univ_peak=- digest=6e15a04f6f81
+Photon         small   rep=0 ok=True wall=389.4s rss=3623MB univ_peak=- digest=11f13e332c32
+Photon         medium  rep=0 ok=True wall=358.9s rss=4441MB univ_peak=- digest=204bba3eadad
+Photon         large   rep=0 ok=True wall=240.9s rss=588MB univ_peak=- digest=18166aa19f63
+Photon         xlarge  rep=0 ok=True wall=399.2s rss=1347MB univ_peak=- digest=180526c42e96
+sum_naive      small   rep=0 ok=True wall=111.7s rss=3833MB univ_peak=- digest=f310b773a00c
+sum_naive      medium  rep=0 ok=True wall=48.8s rss=1413MB univ_peak=- digest=289ecb737a2e
+sum_naive      large   rep=0 ok=True wall=36.2s rss=456MB univ_peak=- digest=e83a8b1312b8
+sum_naive      xlarge  rep=0 ok=True wall=18.3s rss=235MB univ_peak=- digest=2e93e2a82f59
+findmax_naive  small   rep=0 ok=True wall=106.7s rss=3836MB univ_peak=- digest=a097e7f1be2e
+findmax_naive  medium  rep=0 ok=True wall=49.6s rss=1414MB univ_peak=- digest=84608d58915a
+findmax_naive  large   rep=0 ok=True wall=36.9s rss=463MB univ_peak=- digest=c5bb959d3c01
+findmax_naive  xlarge  rep=0 ok=True wall=19.3s rss=242MB univ_peak=- digest=6e15a04f6f81
+Photon         small   rep=0 ok=False wall=462.2s rss=5902MB univ_peak=- digest=
+Photon         medium  rep=0 ok=True wall=282.9s rss=2446MB univ_peak=- digest=9e9b4c2d11fe
+Photon         large   rep=0 ok=True wall=247.2s rss=588MB univ_peak=- digest=18166aa19f63
+== relaunch after guard fix Mon Nov  9 21:45:30 Asia 2026
+== 21:45:31 light memory runs
+nothing to do
+nothing to do
+AES            small   rep=0 ok=True wall=5.4s rss=125MB univ_peak=- digest=29874fb809d4
+AES            medium  rep=0 ok=True wall=4.4s rss=75MB univ_peak=- digest=19f8e04b0f9e
+AES            large   rep=0 ok=True wall=3.7s rss=55MB univ_peak=- digest=2a9bf1c75414
+AES            xlarge  rep=0 ok=True wall=3.6s rss=46MB univ_peak=- digest=f220378bd624
+Ascon          small   rep=0 ok=True wall=12.7s rss=187MB univ_peak=- digest=08e325029849
+Ascon          medium  rep=0 ok=True wall=11.8s rss=145MB univ_peak=- digest=737985fd7438
+Ascon          large   rep=0 ok=True wall=10.6s rss=104MB univ_peak=- digest=6139f104aeab
+Ascon          xlarge  rep=0 ok=True wall=11.7s rss=107MB univ_peak=- digest=784e7e79d852
+TinyJambu      small   rep=0 ok=True wall=2.7s rss=110MB univ_peak=- digest=485a4cc70947
+TinyJambu      medium  rep=0 ok=True wall=1.9s rss=67MB univ_peak=- digest=e9d9083f4931
+TinyJambu      large   rep=0 ok=True wall=2.1s rss=61MB univ_peak=- digest=0ad8c6b4fd0f
+TinyJambu      xlarge  rep=0 ok=True wall=2.6s rss=65MB univ_peak=- digest=eddc52bbe38a
+tracingAES     small   rep=0 ok=True wall=8.3s rss=128MB univ_peak=- digest=b3f770e38410
+tracingAES     medium  rep=0 ok=True wall=8.6s rss=120MB univ_peak=- digest=f0db7806bf3c
+tracingAES     large   rep=0 ok=True wall=9.1s rss=78MB univ_peak=- digest=ad2951104d1b
+tracingAES     xlarge  rep=0 ok=True wall=12.1s rss=78MB univ_peak=- digest=a8fc7778cda7
+sum_tree       small   rep=0 ok=True wall=3.1s rss=132MB univ_peak=- digest=5bfc7ed34f67
+sum_tree       medium  rep=0 ok=True wall=1.6s rss=66MB univ_peak=- digest=9e3ae8c56039
+sum_tree       large   rep=0 ok=True wall=2.9s rss=56MB univ_peak=- digest=7efe3df5d915
+sum_tree       xlarge  rep=0 ok=True wall=24.0s rss=127MB univ_peak=- digest=a18a64f1f660
+findmax_tree   small   rep=0 ok=True wall=5.4s rss=215MB univ_peak=- digest=21d9bf20ba33
+findmax_tree   medium  rep=0 ok=True wall=1.6s rss=67MB univ_peak=- digest=63bcb268dafe
+findmax_tree   large   rep=0 ok=True wall=5.4s rss=108MB univ_peak=- digest=9aa398e1a356
+findmax_tree   xlarge  rep=0 ok=True wall=24.0s rss=128MB univ_peak=- digest=0f3d18fef0ed
+== 21:47:08 ablation small SE
+nothing to do
+nothing to do
+nothing to do
+== 21:47:08 retained memory after universalize, optimized
+nothing to do
+== 21:47:08 timing
+nothing to do
+nothing to do
+== 21:47:08 scaling
+== 21:47:08 functional tests, light programs
+== 21:47:08 heavy programs, one at a time
+nothing to do
+nothing to do
+sum_naive      small   rep=0 ok=True wall=104.7s rss=3833MB univ_peak=- digest=f310b773a00c
+sum_naive      medium  rep=0 ok=True wall=49.5s rss=1408MB univ_peak=- digest=289ecb737a2e
+sum_naive      large   rep=0 ok=True wall=34.8s rss=456MB univ_peak=- digest=e83a8b1312b8
+sum_naive      xlarge  rep=0 ok=True wall=17.4s rss=235MB univ_peak=- digest=2e93e2a82f59
+findmax_naive  small   rep=0 ok=True wall=106.0s rss=3835MB univ_peak=- digest=a097e7f1be2e
+findmax_naive  medium  rep=0 ok=True wall=48.0s rss=1414MB univ_peak=- digest=84608d58915a
+findmax_naive  large   rep=0 ok=True wall=35.7s rss=462MB univ_peak=- digest=c5bb959d3c01
+findmax_naive  xlarge  rep=0 ok=True wall=18.4s rss=242MB univ_peak=- digest=6e15a04f6f81
+Photon         small   rep=0 ok=True wall=366.6s rss=3623MB univ_peak=- digest=11f13e332c32
+Photon         medium  rep=0 ok=True wall=272.8s rss=2447MB univ_peak=- digest=9e9b4c2d11fe
+Photon         large   rep=0 ok=True wall=234.6s rss=588MB univ_peak=- digest=18166aa19f63
+Photon         xlarge  rep=0 ok=True wall=277.7s rss=675MB univ_peak=- digest=5e3c3dd6030e
+sum_naive      small   rep=0 ok=True wall=102.6s rss=3979MB univ_peak=- digest=f310b773a00c
+findmax_naive  small   rep=0 ok=True wall=101.6s rss=3987MB univ_peak=- digest=a097e7f1be2e
+Photon         small   rep=0 ok=True wall=376.5s rss=3800MB univ_peak=- digest=11f13e332c32
+== 22:22:56 functional + structure, layering after guard fix
+== 22:30:07 QUEUE DONE
+== 22:30:07 re-profile phases for programs whose phase rows were lost
+tracingAES     small   rep=0 ok=True wall=39.5s rss=411MB univ_peak=109.27 digest=6ad24272b390
+tracingAES     medium  rep=0 ok=True wall=17.2s rss=155MB univ_peak=34.75 digest=f0db7806bf3c
+tracingAES     large   rep=0 ok=True wall=33.5s rss=152MB univ_peak=34.33 digest=2c45c9ebd56c
+tracingAES     xlarge  rep=0 ok=True wall=27.9s rss=97MB univ_peak=16.61 digest=a8fc7778cda7
+sum_tree       small   rep=0 ok=True wall=151.4s rss=317MB univ_peak=94.31 digest=a36e3523fded
+sum_tree       medium  rep=0 ok=True wall=13.8s rss=81MB univ_peak=18.08 digest=9e3ae8c56039
+sum_tree       large   rep=0 ok=True wall=49.2s rss=162MB univ_peak=41.11 digest=53fa5acd65d8
+sum_tree       xlarge  rep=0 ok=True wall=113.5s rss=166MB univ_peak=41.01 digest=a18a64f1f660
+findmax_tree   small   rep=0 ok=True wall=117.2s rss=281MB univ_peak=83.03 digest=21d9bf20ba33
+findmax_tree   medium  rep=0 ok=True wall=14.5s rss=83MB univ_peak=17.78 digest=63bcb268dafe
+findmax_tree   large   rep=0 ok=True wall=40.7s rss=139MB univ_peak=34.07 digest=9aa398e1a356
+findmax_tree   xlarge  rep=0 ok=True wall=60.6s rss=167MB univ_peak=40.83 digest=0f3d18fef0ed
+== 22:36:07 QUEUE DONE 2

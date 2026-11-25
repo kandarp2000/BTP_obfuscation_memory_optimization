@@ -1,0 +1,21 @@
+Compiling interpreter............ OK
+
+Running the tests:
+  programs/AES................... Flag '-depth 25' was used, but the program has a depth of 179. Ignoring the -depth flag and continuing.
+Flag '-width 4' was used, but the program has a width of 9. Ignoring the -width flag and continuing.
+OK
+  programs/Ascon................. Flag '-depth 25' was used, but the program has a depth of 334. Ignoring the -depth flag and continuing.
+Flag '-width 4' was used, but the program has a width of 24. Ignoring the -width flag and continuing.
+OK
+  programs/TinyJambu............. Flag '-depth 25' was used, but the program has a depth of 348. Ignoring the -depth flag and continuing.
+OK
+  programs/tracingAES............ Flag '-depth 25' was used, but the program has a depth of 186. Ignoring the -depth flag and continuing.
+Flag '-width 4' was used, but the program has a width of 13. Ignoring the -width flag and continuing.
+OK
+  programs/sum_tree.............. Flag '-width 4' was used, but the program has a width of 195. Ignoring the -width flag and continuing.
+OK
+  programs/findmax_tree.......... Flag '-width 4' was used, but the program has a width of 135. Ignoring the -width flag and continuing.
+OK
+
+Ran 6 tests: 6 OK, 0 fail
+

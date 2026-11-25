@@ -1,0 +1,12 @@
+Compiling interpreter...... OK
+
+Running the tests:
+  programs/Photon.......... Flag '-depth 25' was used, but the program has a depth of 465. Ignoring the -depth flag and continuing.
+Flag '-width 4' was used, but the program has a width of 32. Ignoring the -width flag and continuing.
+OK
+  programs/Ascon........... Flag '-depth 25' was used, but the program has a depth of 232. Ignoring the -depth flag and continuing.
+Flag '-width 4' was used, but the program has a width of 5. Ignoring the -width flag and continuing.
+OK
+
+Ran 2 tests: 2 OK, 0 fail
+
