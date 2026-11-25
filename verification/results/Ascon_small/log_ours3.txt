@@ -1,0 +1,15 @@
+[    6.32s] Frontend: 6.20 sec
+[    6.32s]   HLIR size: 14245 HLIs
+[   18.56s] Clusterization: 12.24 sec
+[   18.56s]   MLIR size: 631 MLMIs
+[   18.79s]   layering: estimated width ASAP=21 balanced=6 -> balanced
+[   18.99s]   program depth: 317
+[   19.02s]   program width: 6
+[   19.14s] Rectangularization: 0.58
+[   19.14s]   MLIR size: 1907 MLMIs
+[   22.95s] Universalization: 4.39 sec
+[   22.95s]   MLIR size: 20033 MLMIs
+[   25.82s] Lowering: 2.87 sec
+[   25.82s]   LLIR size: 20033 LLMIs
+[   27.79s] Serialization: 1.61 sec
+[   27.79s] Total compilation time: 27.67 sec

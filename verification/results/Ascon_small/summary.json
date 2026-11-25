@@ -1,0 +1,378 @@
+{
+ "program": "Ascon",
+ "source": "tests/automated/programs/Ascon.c",
+ "se": "small",
+ "seed": 1,
+ "common_flags": [
+  "-r",
+  "40",
+  "-lin",
+  "8",
+  "-lout",
+  "8",
+  "-s",
+  "32",
+  "-stats"
+ ],
+ "machine": "16 cpus, 7.5 GB RAM",
+ "python": "3.12.3",
+ "runs": {
+  "original": {
+   "flags": "",
+   "peak_rss_mb": 962.5,
+   "wall_s": 71.73,
+   "all_peaks_mb": [
+    962.5
+   ],
+   "all_walls_s": [
+    71.73
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 7.08,
+     "peak_rss_mb": 70.8
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 12.22,
+     "peak_rss_mb": 67.5
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.81,
+     "peak_rss_mb": 71.2
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 24.67,
+     "peak_rss_mb": 411.9
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 15.02,
+     "peak_rss_mb": 749.7
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 11.79,
+     "peak_rss_mb": 962.5
+    }
+   ],
+   "stats": {
+    "hlis": 14245,
+    "depth": 317,
+    "width": 21,
+    "total_s": 70.79,
+    "mlmis_final": 120188
+   },
+   "bytes": 17264565,
+   "masked_sha256": "0f01f89c2ef1afc0a4754631de95b716a490fc8f3461836d0677f1fb8fa595c1",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/Ascon_small/original.bin"
+  },
+  "ours1": {
+   "flags": "-seed 1 -opt-all",
+   "peak_rss_mb": 916.0,
+   "wall_s": 68.85,
+   "all_peaks_mb": [
+    916.0
+   ],
+   "all_walls_s": [
+    68.85
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 5.37,
+     "peak_rss_mb": 71.4
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 11.47,
+     "peak_rss_mb": 70.8
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.74,
+     "peak_rss_mb": 73.3
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 22.82,
+     "peak_rss_mb": 408.9
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 16.18,
+     "peak_rss_mb": 702.8
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 12.12,
+     "peak_rss_mb": 916.2
+    }
+   ],
+   "stats": {
+    "hlis": 14245,
+    "depth": 317,
+    "width": 21,
+    "llmis": 120188,
+    "total_s": 67.96,
+    "mlmis_final": 120188
+   },
+   "bytes": 17264565,
+   "masked_sha256": "0f01f89c2ef1afc0a4754631de95b716a490fc8f3461836d0677f1fb8fa595c1",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/Ascon_small/ours1.bin",
+   "vs_original": {
+    "identical": true,
+    "differing_bytes": 64,
+    "differing_outside_key_header": 0
+   }
+  },
+  "ours2": {
+   "flags": "-seed 1 -opt-all -opt-o5",
+   "peak_rss_mb": 788.3,
+   "wall_s": 71.66,
+   "all_peaks_mb": [
+    788.3
+   ],
+   "all_walls_s": [
+    71.66
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 6.08,
+     "peak_rss_mb": 71.4
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 12.2,
+     "peak_rss_mb": 68.5
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.86,
+     "peak_rss_mb": 71.0
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 24.01,
+     "peak_rss_mb": 408.9
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 15.73,
+     "peak_rss_mb": 702.8
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 10.97,
+     "peak_rss_mb": 788.7
+    }
+   ],
+   "stats": {
+    "hlis": 14245,
+    "depth": 317,
+    "width": 21,
+    "llmis": 120188,
+    "total_s": 70.91,
+    "mlmis_final": 120188
+   },
+   "bytes": 17264565,
+   "masked_sha256": "0f01f89c2ef1afc0a4754631de95b716a490fc8f3461836d0677f1fb8fa595c1",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/Ascon_small/ours2.bin",
+   "vs_original": {
+    "identical": true,
+    "differing_bytes": 64,
+    "differing_outside_key_header": 0
+   }
+  },
+  "ours3": {
+   "flags": "-seed 1 -opt-all -opt-o5 -opt-layering",
+   "peak_rss_mb": 157.3,
+   "wall_s": 27.96,
+   "all_peaks_mb": [
+    157.3
+   ],
+   "all_walls_s": [
+    27.96
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 6.2,
+     "peak_rss_mb": 71.5
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 12.24,
+     "peak_rss_mb": 67.6
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.58,
+     "peak_rss_mb": 67.6
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 4.39,
+     "peak_rss_mb": 100.7
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 2.87,
+     "peak_rss_mb": 150.0
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 1.61,
+     "peak_rss_mb": 157.3
+    }
+   ],
+   "stats": {
+    "hlis": 14245,
+    "depth": 317,
+    "width": 6,
+    "llmis": 20033,
+    "total_s": 27.67,
+    "mlmis_final": 20033
+   },
+   "bytes": 2939508,
+   "masked_sha256": "08e325029849f915bc9ef5c7a332e63e1956643229c7cdd41bf72636f94473c6",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/Ascon_small/ours3.bin",
+   "vs_original": {
+    "identical": false,
+    "differing_bytes": 2798759,
+    "differing_outside_key_header": 17123752
+   }
+  }
+ },
+ "functional": {
+  "tests": 3,
+  "n_inputs": 24,
+  "n_outputs": 9,
+  "passed": {
+   "original": 3,
+   "ours1": 3,
+   "ours2": 3,
+   "ours3": 3
+  },
+  "examples": [
+   {
+    "inputs_first4": [
+     "577090037",
+     "2444712010",
+     "3639700191",
+     "3445702192"
+    ],
+    "plain_C_first4": [
+     "0",
+     "587784249",
+     "2373970703",
+     "2892136509"
+    ],
+    "original_first4": [
+     "0",
+     "587784249",
+     "2373970703",
+     "2892136509"
+    ],
+    "ours1_first4": [
+     "0",
+     "587784249",
+     "2373970703",
+     "2892136509"
+    ],
+    "ours2_first4": [
+     "0",
+     "587784249",
+     "2373970703",
+     "2892136509"
+    ],
+    "ours3_first4": [
+     "0",
+     "587784249",
+     "2373970703",
+     "2892136509"
+    ]
+   },
+   {
+    "inputs_first4": [
+     "3273968005",
+     "3294916953",
+     "9045414",
+     "2988579416"
+    ],
+    "plain_C_first4": [
+     "0",
+     "1238319335",
+     "3462222982",
+     "2204074871"
+    ],
+    "original_first4": [
+     "0",
+     "1238319335",
+     "3462222982",
+     "2204074871"
+    ],
+    "ours1_first4": [
+     "0",
+     "1238319335",
+     "3462222982",
+     "2204074871"
+    ],
+    "ours2_first4": [
+     "0",
+     "1238319335",
+     "3462222982",
+     "2204074871"
+    ],
+    "ours3_first4": [
+     "0",
+     "1238319335",
+     "3462222982",
+     "2204074871"
+    ]
+   },
+   {
+    "inputs_first4": [
+     "930287327",
+     "4161997890",
+     "1812976885",
+     "3117513184"
+    ],
+    "plain_C_first4": [
+     "0",
+     "674478425",
+     "2279165387",
+     "3402465777"
+    ],
+    "original_first4": [
+     "0",
+     "674478425",
+     "2279165387",
+     "3402465777"
+    ],
+    "ours1_first4": [
+     "0",
+     "674478425",
+     "2279165387",
+     "3402465777"
+    ],
+    "ours2_first4": [
+     "0",
+     "674478425",
+     "2279165387",
+     "3402465777"
+    ],
+    "ours3_first4": [
+     "0",
+     "674478425",
+     "2279165387",
+     "3402465777"
+    ]
+   }
+  ]
+ }
+}
