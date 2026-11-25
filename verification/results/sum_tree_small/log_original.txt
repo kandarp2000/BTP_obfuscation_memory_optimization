@@ -1,0 +1,13 @@
+[    0.31s] Frontend: 0.15 sec
+[    0.31s]   HLIR size: 1029 HLIs
+[    0.45s] Clusterization: 0.14 sec
+[    0.45s]   MLIR size: 265 MLMIs
+[    0.50s]   program depth: 6
+[    0.50s]   program width: 186
+[    0.54s] Rectangularization: 0.08
+[    0.54s]   MLIR size: 1242 MLMIs
+[   11.84s] Universalization: 11.39 sec
+[   11.84s]   MLIR size: 28381 MLMIs
+[   15.26s] Lowering: 3.42 sec
+[   17.59s] Serialization: 2.33 sec
+[   17.59s] Total compilation time: 17.43 sec
