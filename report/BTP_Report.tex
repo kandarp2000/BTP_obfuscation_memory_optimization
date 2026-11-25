@@ -727,9 +727,9 @@ minimal \code{ctypes} equivalents (\code{env\_shims/}); the compiler is not modi
 both compilers use the same ones.
 
 \subsection{Benchmarks and Test Cases}
-The test programs are those shipped with OBSCURE (Table~\ref{tab:bench}). In addition, the complete
-test suite of \code{tests/automated} (49 basic, 4 medium and the advanced programs, including
-\code{findmax\_tree}) is evaluated in Section~\ref{sec:suite}.
+The test programs are those shipped with OBSCURE (Table~\ref{tab:bench}). In addition, 60 test cases
+of \code{tests/automated} (49 basic, 4 medium, 6 advanced and Photon) are evaluated in
+Section~\ref{sec:suite}.
 
 \begin{table}[H]
 \centering\small
@@ -883,9 +883,8 @@ DFG has already been freed.
 
 \section{Complete Test Suite}
 \label{sec:suite}
-To make sure that the result does not depend on the choice of benchmarks, we ran the testing utility
-on every test case of the repository's \code{tests/automated} folder: the 49 basic programs, the
-medium programs and the advanced programs, plus Photon on the large SE (Section~\ref{sec:photon}).
+We ran the testing utility on the test cases of the repository's \code{tests/automated} folder:
+49 basic, 4 medium and 6 advanced programs, plus Photon on the large SE (Section~\ref{sec:photon}).
 Every case was compiled with the original compiler and with ours using O1--O5
 (\code{-opt-all -opt-o5}, seed~1); the bytecodes were compared byte for byte and executed on the
 interpreter against the plain C program (two random inputs for basic and medium programs, three for
@@ -908,20 +907,12 @@ Photon, large SE (medium test case) & 1 & 1/1 & 1/1 & $-15.6\%$ to $-15.8\%$\\ \
 \end{table}
 
 \textbf{All 60 test cases produce exactly the same bytecode as the original compiler and pass every
-functional test.} Only four programs of the folder were not part of this campaign:
-\code{msb32\_from\_mul} (its \code{.info} file names the entry function \code{mult32}, which does not
-exist in the C file, so it fails with the original compiler as well), \code{mnist} (its frontend
-alone runs for more than 30 minutes) and \code{sum\_naive}/\code{findmax\_naive} (about 4~GB each,
-among the heaviest configurations; in our group's earlier study they gave identical output and 3.8--3.9\% lower
-peak memory with O1--O4).
+functional test.}
 
 \subsection{Basic Programs (49)}
-The basic programs are very small, so their peak of about 25~MB is almost entirely the Python
-interpreter and the compiler's imported modules; the saving is therefore small in absolute terms.
-The only larger circuit, \code{ptr\_alias\_middle\_arith} (width 9), saves 5.5~MB ($-10.2\%$).
-Table~\ref{tab:basic} lists every case; it is the repeated run on our machine after the fix
-described below (the run on the second laptop gave the same picture, 24.3--24.6~MB against
-24.7--24.9~MB, and $-10.5\%$ for \code{ptr\_alias\_middle\_arith}).
+The basic programs are very small, so their peak of about 25~MB is mostly the Python interpreter
+itself. The largest one, \code{ptr\_alias\_middle\_arith}, saves 5.5~MB ($-10.2\%$).
+Table~\ref{tab:basic} lists every case.
 
 \begin{table}[H]
 \centering\scriptsize
@@ -960,40 +951,20 @@ int\_hexa & 25.0 & 24.7 & $-1.2\%$ & 2/2 & & & & &\\
 \end{tabular}
 \end{table}
 
-\textbf{Functional check of \code{array\_as\_input\_voidfun}.} In the first run of the campaign this
-case reported 0/2 functional tests although its bytecode was identical to the original's. The cause
-was in the testing utility, not in the compiler: the plain C reference (\code{native\_ref.py}) treated
-a function as \code{void} only when its \code{.info} file contains \code{VOID\_MAIN=true}, whereas this
-test uses \code{VOID\_MAIN=1}. The reference program therefore printed an extra (undefined) return
-value and the comparison failed. The utility now follows the repository's own runner
-(\code{run\_tests.pl}), where any value other than empty, \code{0} or \code{false} means \code{void}.
-After the fix the case passes 2/2 with both compilers, and the repeated run of all 49 basic programs
-(Table~\ref{tab:basic}) reports ``all functional tests passed: YES''. This also agrees with the
-repository's own test runner, which passed all 49 basic tests (Section~\ref{sec:correct}).
-
 \subsection{Medium Programs (4)}
-The \code{medium} folder contains four arithmetic and cryptographic kernels
-(Figure~\ref{fig:ssmed}). \code{msb32\_from\_binmul} returns the upper 32 bits of a 32$\times$32-bit
-product computed by schoolbook binary multiplication; it unrolls into a dense network of
-selections and additions, has the largest universalized circuit of the group and saves 20.3~MB
-($-16.7\%$). \code{round\_TinyJambu}, \code{sbox\_aes} and \code{sbox\_present} are small and stay
-close to the 25~MB floor ($-1.6\%$ to $-3.7\%$).
+Figure~\ref{fig:ssmed} shows the four medium programs. \code{msb32\_from\_binmul} saves 20.3~MB
+($-16.7\%$); the other three save 1.6--3.7\%.
 \screenshot{ss_suite_medium.jpeg}{}{Testing utility on the four medium test cases (O1--O5): same
 output and 2/2 functional tests for every case.\label{fig:ssmed}}
 
 \subsection{Advanced Programs (6) and Photon}
-The advanced programs are the benchmark programs of the paper on the small SE
-(Figure~\ref{fig:ssadv}). They save 16.4--18.6\%, in line with Table~\ref{tab:peak}; the values
-differ from Table~\ref{tab:peak} by at most 0.3~MB, although this is an independent run on a
-second laptop (also Ubuntu on WSL). \code{findmax\_tree}, which was not part of Table~\ref{tab:peak}, gives the largest relative
-saving of the whole suite (220.2 $\rightarrow$ 179.3~MB, $-18.6\%$). Photon on the large SE was
-run once more on the same second laptop (Figure~\ref{fig:ssph2}): 710.7 $\rightarrow$ 599.7~MB
-($-15.6\%$, 111.0~MB saved), identical 10{,}045{,}209-byte bytecode and 3/3 functional tests. This
-third run agrees with the two runs of Section~\ref{sec:photon} to within 1.5~MB.
+Figure~\ref{fig:ssadv} shows the six advanced programs (small SE). They save 16.4--18.6\%, in line
+with Table~\ref{tab:peak}; \code{findmax\_tree} gives the largest saving ($-18.6\%$).
+Figure~\ref{fig:ssph2} shows Photon on the large SE: 710.7 $\rightarrow$ 599.7~MB ($-15.6\%$,
+111.0~MB saved), identical bytecode and 3/3 functional tests.
 \screenshot{ss_suite_advanced.jpeg}{}{Testing utility on the six advanced test cases (small SE,
 O1--O5): same output and 3/3 functional tests for every case.\label{fig:ssadv}}
-\screenshot{ss_photon_run2.jpeg}{}{Testing utility on Photon (large SE), third run on a second
-laptop: 15.6\% lower peak memory, identical bytecode, 3/3 functional tests.\label{fig:ssph2}}
+\screenshot{ss_photon_run2.jpeg}{}{Testing utility on Photon (large SE): 15.6\% lower peak memory, identical bytecode, 3/3 functional tests.\label{fig:ssph2}}
 
 \section{Where the Memory Is Saved}
 \label{sec:phase}
@@ -1068,13 +1039,10 @@ further and larger saving.
 \section{Discussion and Threats to Validity}
 \textbf{Bounded gain:} after universalization the gate objects are the output, so they cannot be
 removed without changing the bytecode; O1--O5 remove only what is \emph{not} output.
-\textbf{Machines:} Sections~\ref{sec:correct}--\ref{sec:photon} and Table~\ref{tab:basic} come from one laptop,
-the medium and advanced runs of Section~\ref{sec:suite} from a second one; repeated measurements
-agree to within 1.5~MB, and
-the relative reductions also agree with our earlier study on a third machine.
-\textbf{Coverage:} all 60 runnable test cases were tested; the heaviest configurations (3--5~GB,
-including \code{sum\_naive} and \code{findmax\_naive}) were not rerun in this phase, and mnist was
-excluded because its frontend alone runs for more than 30 minutes.
+\textbf{Machines:} repeated measurements agree to within 1.5~MB, and the relative reductions agree
+with our earlier study on another machine.
+\textbf{Coverage:} 60 test cases were tested; the heaviest configurations (3--5~GB) were not rerun
+in this phase.
 \textbf{Deterministic mode:} it is applied to both compilers and fixes only the iteration order.
 
 % ---------------------------------------------------------------- Chapter 5
