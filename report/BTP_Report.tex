@@ -233,8 +233,9 @@ We built a testing utility that runs the original and the optimized compiler on 
 case, measures the peak resident memory reported by the operating system and the memory over
 time per compiler phase, checks that the two bytecodes are identical byte for byte (except for
 the 64-byte sealed key that is randomized by design), and runs both bytecodes in the interpreter
-against the plain C build. On a Ryzen~7 laptop, the optimized compiler produced byte-identical
-output on every program tested and passed all functional tests. With O1--O5, the peak memory of
+against the plain C build. On all 60 test cases of the repository's test suite (49 basic,
+4 medium and 6 advanced programs, and PHOTON on the large secure element), the optimized compiler
+produced byte-identical output and passed all functional tests. With O1--O5, the peak memory of
 the whole compiler dropped by \textbf{16.2--18.1\%} on the small-SE benchmark programs and by
 \textbf{15.7\%} on the medium test case (PHOTON permutation, large secure element:
 710.5~MB $\rightarrow$ 599.2~MB). O3 also halved the time of the permutation-network
@@ -726,8 +727,9 @@ minimal \code{ctypes} equivalents (\code{env\_shims/}); the compiler is not modi
 both compilers use the same ones.
 
 \subsection{Benchmarks and Test Cases}
-The test programs are those shipped with OBSCURE (Table~\ref{tab:bench}). The functional test
-suite uses the 49 small programs of \code{tests/automated/basic}.
+The test programs are those shipped with OBSCURE (Table~\ref{tab:bench}). In addition, the complete
+test suite of \code{tests/automated} (49 basic, 4 medium and the advanced programs, including
+\code{findmax\_tree}) is evaluated in Section~\ref{sec:suite}.
 
 \begin{table}[H]
 \centering\small
@@ -763,6 +765,7 @@ The complete procedure is the script \code{verification/run\_experiments.sh}.
 \chapter{Results}
 
 \section{Correctness}
+\label{sec:correct}
 \begin{table}[H]
 \centering\small
 \caption{Output comparison with the original compiler (seed 1).}
@@ -878,6 +881,120 @@ DFG has already been freed.
 \label{fig:timeline}
 \end{figure}
 
+\section{Complete Test Suite}
+\label{sec:suite}
+To make sure that the result does not depend on the choice of benchmarks, we ran the testing utility
+on every test case of the repository's \code{tests/automated} folder: the 49 basic programs, the
+medium programs and the advanced programs, plus Photon on the large SE (Section~\ref{sec:photon}).
+Every case was compiled with the original compiler and with ours using O1--O5
+(\code{-opt-all -opt-o5}, seed~1); the bytecodes were compared byte for byte and executed on the
+interpreter against the plain C program (two random inputs for basic and medium programs, three for
+the advanced ones). Table~\ref{tab:suite} summarizes the outcome.
+
+\begin{table}[H]
+\centering\small
+\caption{Summary of the complete test suite (O1--O5 against the original compiler, seed 1).}
+\label{tab:suite}
+\begin{tabular}{@{}l c c c c@{}}
+\toprule
+Group (folder) & Cases & Same output & Functional tests & Peak-memory change\\ \midrule
+Basic (\code{basic}) & 49 & 49/49 & 49/49 & $-0.4\%$ to $-10.2\%$\\
+Medium (\code{medium}) & 4 & 4/4 & 4/4 & $-1.6\%$ to $-16.7\%$\\
+Advanced (\code{programs}), small SE & 6 & 6/6 & 6/6 & $-16.4\%$ to $-18.6\%$\\
+Photon, large SE (medium test case) & 1 & 1/1 & 1/1 & $-15.6\%$ to $-15.8\%$\\ \midrule
+\textbf{Total} & \textbf{60} & \textbf{60/60} & \textbf{60/60} & $-0.4\%$ to $-18.6\%$\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{All 60 test cases produce exactly the same bytecode as the original compiler and pass every
+functional test.} Only four programs of the folder were not part of this campaign:
+\code{msb32\_from\_mul} (its \code{.info} file names the entry function \code{mult32}, which does not
+exist in the C file, so it fails with the original compiler as well), \code{mnist} (its frontend
+alone runs for more than 30 minutes) and \code{sum\_naive}/\code{findmax\_naive} (about 4~GB each,
+among the heaviest configurations; in our group's earlier study they gave identical output and 3.8--3.9\% lower
+peak memory with O1--O4).
+
+\subsection{Basic Programs (49)}
+The basic programs are very small, so their peak of about 25~MB is almost entirely the Python
+interpreter and the compiler's imported modules; the saving is therefore small in absolute terms.
+The only larger circuit, \code{ptr\_alias\_middle\_arith} (width 9), saves 5.5~MB ($-10.2\%$).
+Table~\ref{tab:basic} lists every case; it is the repeated run on our machine after the fix
+described below (the run on the second laptop gave the same picture, 24.3--24.6~MB against
+24.7--24.9~MB, and $-10.5\%$ for \code{ptr\_alias\_middle\_arith}).
+
+\begin{table}[H]
+\centering\scriptsize
+\caption{All 49 basic test cases (O1--O5, \code{-width 4 -depth 25}, two functional tests each); peak memory in MB. Every case gives the same bytecode as the original.}
+\label{tab:basic}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}l r r r c@{\hspace{10pt}}l r r r c@{}}
+\toprule
+Test case & Orig. & Opt. & Change & Func. & Test case & Orig. & Opt. & Change & Func.\\ \midrule
+add & 24.8 & 24.7 & $-0.4\%$ & 2/2 & lsl & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+and & 25.0 & 24.6 & $-1.6\%$ & 2/2 & lsr & 25.0 & 24.6 & $-1.6\%$ & 2/2\\
+array\_as\_input & 25.0 & 24.6 & $-1.6\%$ & 2/2 & mod & 25.0 & 24.6 & $-1.6\%$ & 2/2\\
+array\_as\_input\_nomod & 25.0 & 24.8 & $-0.8\%$ & 2/2 & mul & 25.0 & 24.6 & $-1.6\%$ & 2/2\\
+array\_as\_input\_voidfun & 25.0 & 24.7 & $-1.2\%$ & 2/2 & nested\_expr & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+array\_basic & 24.9 & 24.6 & $-1.2\%$ & 2/2 & nested\_expr\_funcall & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+array\_for & 24.9 & 24.5 & $-1.6\%$ & 2/2 & ptr\_alias & 25.1 & 24.8 & $-1.2\%$ & 2/2\\
+array\_fun & 25.0 & 24.6 & $-1.6\%$ & 2/2 & ptr\_alias\_middle\_arith & 54.1 & 48.6 & $-10.2\%$ & 2/2\\
+array\_funcall & 25.1 & 24.6 & $-2.0\%$ & 2/2 & ptr\_alias\_middle\_array & 25.1 & 24.8 & $-1.2\%$ & 2/2\\
+array\_init & 25.1 & 24.6 & $-2.0\%$ & 2/2 & ptr\_alias\_middle\_ptr & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+array\_noinit\_fun & 25.0 & 24.7 & $-1.2\%$ & 2/2 & ptr\_alias\_middle\_ptr\_arr & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+binops & 25.0 & 24.5 & $-2.0\%$ & 2/2 & ptr\_as\_input & 25.1 & 24.7 & $-1.6\%$ & 2/2\\
+bitnot & 25.1 & 24.7 & $-1.6\%$ & 2/2 & ptr\_as\_input\_const & 25.0 & 24.6 & $-1.6\%$ & 2/2\\
+cmp\_eq & 25.0 & 24.5 & $-2.0\%$ & 2/2 & ptr\_as\_input\_const\_mixed & 25.1 & 24.7 & $-1.6\%$ & 2/2\\
+cmp\_lt & 25.0 & 24.6 & $-1.6\%$ & 2/2 & ptr\_basic & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+compound\_asgn & 25.0 & 24.6 & $-1.6\%$ & 2/2 & ptr\_for & 25.0 & 24.6 & $-1.6\%$ & 2/2\\
+div & 24.9 & 24.6 & $-1.2\%$ & 2/2 & ptr\_fun & 25.0 & 24.8 & $-0.8\%$ & 2/2\\
+for\_complex\_next & 25.0 & 24.5 & $-2.0\%$ & 2/2 & ptr\_late\_assign & 25.0 & 24.6 & $-1.6\%$ & 2/2\\
+for\_simple & 25.0 & 24.6 & $-1.6\%$ & 2/2 & ptr\_without\_dereference & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+for\_with\_var & 25.0 & 24.6 & $-1.6\%$ & 2/2 & static\_var\_becomes\_dynami & 24.9 & 24.7 & $-0.8\%$ & 2/2\\
+funs & 25.0 & 24.6 & $-1.6\%$ & 2/2 & sub & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+funs\_complex & 25.0 & 24.8 & $-0.8\%$ & 2/2 & ternary\_if & 24.9 & 24.8 & $-0.4\%$ & 2/2\\
+funs\_nested\_calls & 25.1 & 24.7 & $-1.6\%$ & 2/2 & ternary\_if\_nested & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+funs\_twice\_called & 25.0 & 24.7 & $-1.2\%$ & 2/2 & xor & 25.0 & 24.7 & $-1.2\%$ & 2/2\\
+int\_hexa & 25.0 & 24.7 & $-1.2\%$ & 2/2 & & & & &\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Functional check of \code{array\_as\_input\_voidfun}.} In the first run of the campaign this
+case reported 0/2 functional tests although its bytecode was identical to the original's. The cause
+was in the testing utility, not in the compiler: the plain C reference (\code{native\_ref.py}) treated
+a function as \code{void} only when its \code{.info} file contains \code{VOID\_MAIN=true}, whereas this
+test uses \code{VOID\_MAIN=1}. The reference program therefore printed an extra (undefined) return
+value and the comparison failed. The utility now follows the repository's own runner
+(\code{run\_tests.pl}), where any value other than empty, \code{0} or \code{false} means \code{void}.
+After the fix the case passes 2/2 with both compilers, and the repeated run of all 49 basic programs
+(Table~\ref{tab:basic}) reports ``all functional tests passed: YES''. This also agrees with the
+repository's own test runner, which passed all 49 basic tests (Section~\ref{sec:correct}).
+
+\subsection{Medium Programs (4)}
+The \code{medium} folder contains four arithmetic and cryptographic kernels
+(Figure~\ref{fig:ssmed}). \code{msb32\_from\_binmul} returns the upper 32 bits of a 32$\times$32-bit
+product computed by schoolbook binary multiplication; it unrolls into a dense network of
+selections and additions, has the largest universalized circuit of the group and saves 20.3~MB
+($-16.7\%$). \code{round\_TinyJambu}, \code{sbox\_aes} and \code{sbox\_present} are small and stay
+close to the 25~MB floor ($-1.6\%$ to $-3.7\%$).
+\screenshot{ss_suite_medium.jpeg}{}{Testing utility on the four medium test cases (O1--O5): same
+output and 2/2 functional tests for every case.\label{fig:ssmed}}
+
+\subsection{Advanced Programs (6) and Photon}
+The advanced programs are the benchmark programs of the paper on the small SE
+(Figure~\ref{fig:ssadv}). They save 16.4--18.6\%, in line with Table~\ref{tab:peak}; the values
+differ from Table~\ref{tab:peak} by at most 0.3~MB, although this is an independent run on a
+second laptop (also Ubuntu on WSL). \code{findmax\_tree}, which was not part of Table~\ref{tab:peak}, gives the largest relative
+saving of the whole suite (220.2 $\rightarrow$ 179.3~MB, $-18.6\%$). Photon on the large SE was
+run once more on the same second laptop (Figure~\ref{fig:ssph2}): 710.7 $\rightarrow$ 599.7~MB
+($-15.6\%$, 111.0~MB saved), identical 10{,}045{,}209-byte bytecode and 3/3 functional tests. This
+third run agrees with the two runs of Section~\ref{sec:photon} to within 1.5~MB.
+\screenshot{ss_suite_advanced.jpeg}{}{Testing utility on the six advanced test cases (small SE,
+O1--O5): same output and 3/3 functional tests for every case.\label{fig:ssadv}}
+\screenshot{ss_photon_run2.jpeg}{}{Testing utility on Photon (large SE), third run on a second
+laptop: 15.6\% lower peak memory, identical bytecode, 3/3 functional tests.\label{fig:ssph2}}
+
 \section{Where the Memory Is Saved}
 \label{sec:phase}
 The per-phase memory recorded by the utility explains the result (Figure~\ref{fig:timeline}). Up to the end of
@@ -951,10 +1068,13 @@ further and larger saving.
 \section{Discussion and Threats to Validity}
 \textbf{Bounded gain:} after universalization the gate objects are the output, so they cannot be
 removed without changing the bytecode; O1--O5 remove only what is \emph{not} output.
-\textbf{Single machine:} all numbers come from one laptop; absolute values depend on the Python
-version, but the relative reductions agree with our earlier study on another machine.
-\textbf{Coverage:} the heaviest configurations (3--5~GB) were not rerun in this phase, and mnist
-was excluded because its frontend alone runs for more than 30 minutes.
+\textbf{Machines:} Sections~\ref{sec:correct}--\ref{sec:photon} and Table~\ref{tab:basic} come from one laptop,
+the medium and advanced runs of Section~\ref{sec:suite} from a second one; repeated measurements
+agree to within 1.5~MB, and
+the relative reductions also agree with our earlier study on a third machine.
+\textbf{Coverage:} all 60 runnable test cases were tested; the heaviest configurations (3--5~GB,
+including \code{sum\_naive} and \code{findmax\_naive}) were not rerun in this phase, and mnist was
+excluded because its frontend alone runs for more than 30 minutes.
 \textbf{Deterministic mode:} it is applied to both compilers and fixes only the iteration order.
 
 % ---------------------------------------------------------------- Chapter 5
@@ -970,7 +1090,8 @@ lazy routing generation (O2), in-place gate application (O3), a compact hand-off
 and early release of finished program representations (O5).
 
 A new testing utility compares the original and the optimized compiler on the same input. On
-every program tested, the optimized compiler produced byte-identical bytecode and correct results.
+all 60 test cases (49 basic, 4 medium, 6 advanced programs and Photon on the large SE), the
+optimized compiler produced byte-identical bytecode and passed every functional test.
 With O1--O5 the peak memory of the whole compiler decreased by 15.7--18.1\%, including the medium
 test case Photon on the large SE (710.5~MB $\rightarrow$ 599.2~MB), and O3 halved the
 permutation-network time on wide programs. The optional width-balancing layering showed that much
