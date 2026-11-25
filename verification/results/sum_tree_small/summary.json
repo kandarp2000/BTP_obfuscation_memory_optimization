@@ -1,0 +1,276 @@
+{
+ "program": "sum_tree",
+ "source": "tests/automated/programs/sum_tree.c",
+ "se": "small",
+ "seed": 1,
+ "common_flags": [
+  "-r",
+  "40",
+  "-lin",
+  "8",
+  "-lout",
+  "8",
+  "-s",
+  "32",
+  "-stats"
+ ],
+ "machine": "16 cpus, 7.5 GB RAM",
+ "python": "3.12.3",
+ "runs": {
+  "original": {
+   "flags": "",
+   "peak_rss_mb": 245.0,
+   "wall_s": 17.81,
+   "all_peaks_mb": [
+    245.0,
+    244.9,
+    245.0
+   ],
+   "all_walls_s": [
+    18.21,
+    17.68,
+    17.81
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 0.15,
+     "peak_rss_mb": 22.4
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 0.14,
+     "peak_rss_mb": 22.5
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.08,
+     "peak_rss_mb": 22.5
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 11.39,
+     "peak_rss_mb": 117.5
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 3.42,
+     "peak_rss_mb": 194.0
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 2.33,
+     "peak_rss_mb": 245.0
+    }
+   ],
+   "stats": {
+    "hlis": 1029,
+    "depth": 6,
+    "width": 186,
+    "total_s": 17.43,
+    "mlmis_final": 28381
+   },
+   "bytes": 4067474,
+   "masked_sha256": "a36e3523fded76c12a12fe58c58deeb16b357d4d7fb500dbcb04cdd6c6c79489",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/sum_tree_small/original.bin"
+  },
+  "ours1": {
+   "flags": "-seed 1 -opt-all",
+   "peak_rss_mb": 234.9,
+   "wall_s": 13.61,
+   "all_peaks_mb": [
+    234.8,
+    234.9,
+    234.9
+   ],
+   "all_walls_s": [
+    13.61,
+    13.63,
+    12.64
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 0.14,
+     "peak_rss_mb": 22.8
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 0.14,
+     "peak_rss_mb": 23.0
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.08,
+     "peak_rss_mb": 23.3
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 5.83,
+     "peak_rss_mb": 114.1
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 3.87,
+     "peak_rss_mb": 184.0
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 2.3,
+     "peak_rss_mb": 234.9
+    }
+   ],
+   "stats": {
+    "hlis": 1029,
+    "depth": 6,
+    "width": 186,
+    "llmis": 28381,
+    "total_s": 12.28,
+    "mlmis_final": 28381
+   },
+   "bytes": 4067474,
+   "masked_sha256": "a36e3523fded76c12a12fe58c58deeb16b357d4d7fb500dbcb04cdd6c6c79489",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/sum_tree_small/ours1.bin",
+   "vs_original": {
+    "identical": true,
+    "differing_bytes": 64,
+    "differing_outside_key_header": 0
+   }
+  },
+  "ours2": {
+   "flags": "-seed 1 -opt-all -opt-o5",
+   "peak_rss_mb": 202.5,
+   "wall_s": 14.74,
+   "all_peaks_mb": [
+    202.5,
+    202.6,
+    202.5
+   ],
+   "all_walls_s": [
+    14.74,
+    13.45,
+    16.11
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 0.15,
+     "peak_rss_mb": 22.7
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 0.14,
+     "peak_rss_mb": 22.9
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.08,
+     "peak_rss_mb": 22.9
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 6.77,
+     "peak_rss_mb": 114.0
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 4.43,
+     "peak_rss_mb": 183.4
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 3.86,
+     "peak_rss_mb": 202.6
+    }
+   ],
+   "stats": {
+    "hlis": 1029,
+    "depth": 6,
+    "width": 186,
+    "llmis": 28381,
+    "total_s": 15.8,
+    "mlmis_final": 28381
+   },
+   "bytes": 4067474,
+   "masked_sha256": "a36e3523fded76c12a12fe58c58deeb16b357d4d7fb500dbcb04cdd6c6c79489",
+   "bin": "/home/kandarpsinghmahobiya/btp_demo/out/sum_tree_small/ours2.bin",
+   "vs_original": {
+    "identical": true,
+    "differing_bytes": 64,
+    "differing_outside_key_header": 0
+   }
+  }
+ },
+ "functional": {
+  "tests": 3,
+  "n_inputs": 1000,
+  "n_outputs": 1,
+  "passed": {
+   "original": 3,
+   "ours1": 3,
+   "ours2": 3
+  },
+  "examples": [
+   {
+    "inputs_first4": [
+     "577090037",
+     "2444712010",
+     "3639700191",
+     "3445702192"
+    ],
+    "plain_C_first4": [
+     "3459707144"
+    ],
+    "original_first4": [
+     "3459707144"
+    ],
+    "ours1_first4": [
+     "3459707144"
+    ],
+    "ours2_first4": [
+     "3459707144"
+    ]
+   },
+   {
+    "inputs_first4": [
+     "2160508093",
+     "2908822078",
+     "1532524906",
+     "3258205999"
+    ],
+    "plain_C_first4": [
+     "2979025734"
+    ],
+    "original_first4": [
+     "2979025734"
+    ],
+    "ours1_first4": [
+     "2979025734"
+    ],
+    "ours2_first4": [
+     "2979025734"
+    ]
+   },
+   {
+    "inputs_first4": [
+     "1767993442",
+     "637101865",
+     "559211348",
+     "1100869506"
+    ],
+    "plain_C_first4": [
+     "624126901"
+    ],
+    "original_first4": [
+     "624126901"
+    ],
+    "ours1_first4": [
+     "624126901"
+    ],
+    "ours2_first4": [
+     "624126901"
+    ]
+   }
+  ]
+ }
+}
