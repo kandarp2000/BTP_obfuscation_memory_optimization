@@ -34,7 +34,7 @@ for n, t in enumerate(types):
 
 reads = "\n    ".join(f"{v} = strtoul(argv[{i + 1}], 0, 10);" for i, v in enumerate(c_vars))
 call = f"{info['MAIN']}({','.join(args)})"
-if info.get("VOID_MAIN") != "true":
+if info.get("VOID_MAIN", "").strip().lower() in ("", "0", "false"):  # like run_tests.pl: any other value means void
     call = f'printf("%u\\n", {call})'
 main_c = f"""#include <stdlib.h>
 #include <stdio.h>
