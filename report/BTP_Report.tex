@@ -1022,7 +1022,7 @@ the original program in the others.
 \toprule
 Aspect & Original OBSCURE & Optimized (O1--O5)\\ \midrule
 Obfuscated output / security & reference; Theorem 1 of \cite{obscure} & byte-identical, so unchanged\\
-Peak memory & reference & 15.7--18.1\% lower on all tested programs\\
+Peak memory & reference & 15.7--18.1\% lower on the benchmark programs\\
 Routing networks & all columns at once, copied twice & generated lazily, compact arrays\\
 Gate application & whole wire list copied per gate & only the gate's window updated\\
 Bookkeeping, HLIR, DFG & kept until the end of compilation & released after last use (O4, O5)\\
@@ -1060,7 +1060,8 @@ and early release of finished program representations (O5).
 A new testing utility compares the original and the optimized compiler on the same input. On
 all 60 test cases (49 basic, 4 medium, 6 advanced programs and Photon on the large SE), the
 optimized compiler produced byte-identical bytecode and passed every functional test.
-With O1--O5 the peak memory of the whole compiler decreased by 15.7--18.1\%, including the medium
+With O1--O5 the peak memory of the whole compiler decreased by 15.7--18.1\% on the benchmark
+programs, including the medium
 test case Photon on the large SE (710.5~MB $\rightarrow$ 599.2~MB), and O3 halved the
 permutation-network time on wide programs. The optional width-balancing layering showed that much
 larger savings are possible when the circuit itself may change.
