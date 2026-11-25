@@ -1,0 +1,222 @@
+{
+ "program": "TinyJambu",
+ "source": "tests/automated/programs/TinyJambu.c",
+ "se": "small",
+ "seed": 1,
+ "common_flags": [
+  "-r",
+  "40",
+  "-lin",
+  "8",
+  "-lout",
+  "8",
+  "-s",
+  "32",
+  "-stats"
+ ],
+ "machine": "12 cpus, 3.7 GB RAM",
+ "python": "3.12.3",
+ "runs": {
+  "original": {
+   "flags": "",
+   "peak_rss_mb": 113.9,
+   "wall_s": 3.26,
+   "all_peaks_mb": [
+    113.9
+   ],
+   "all_walls_s": [
+    3.26
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 0.23,
+     "peak_rss_mb": 27.4
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 0.42,
+     "peak_rss_mb": 29.8
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.07,
+     "peak_rss_mb": 29.8
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 1.11,
+     "peak_rss_mb": 58.6
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 0.93,
+     "peak_rss_mb": 89.3
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 0.41,
+     "peak_rss_mb": 108.2
+    }
+   ],
+   "stats": {
+    "hlis": 6324,
+    "depth": 349,
+    "width": 3,
+    "total_s": 3.11,
+    "mlmis_final": 11201
+   },
+   "bytes": 1613814,
+   "masked_sha256": "485a4cc70947e17ca69d36770d526225bc32e11fd014dcb22f14f8c6dae04fa3",
+   "bin": "/home/venky_on_linux/btp_demo/out/batch/TinyJambu_small/original.bin"
+  },
+  "memoryoptimized": {
+   "flags": "-seed 1 -opt-all -opt-o5",
+   "peak_rss_mb": 95.2,
+   "wall_s": 3.06,
+   "all_peaks_mb": [
+    95.2
+   ],
+   "all_walls_s": [
+    3.06
+   ],
+   "phases": [
+    {
+     "phase": "frontend (C -> HLIR)",
+     "seconds": 0.22,
+     "peak_rss_mb": 28.2
+    },
+    {
+     "phase": "clusterization (HLIR -> MLIR)",
+     "seconds": 0.43,
+     "peak_rss_mb": 30.4
+    },
+    {
+     "phase": "universalize: rectangularize",
+     "seconds": 0.07,
+     "peak_rss_mb": 30.4
+    },
+    {
+     "phase": "universalize: permutation networks",
+     "seconds": 0.83,
+     "peak_rss_mb": 59.2
+    },
+    {
+     "phase": "lowering (MLIR -> LLIR)",
+     "seconds": 0.88,
+     "peak_rss_mb": 83.0
+    },
+    {
+     "phase": "serialization (LLIR -> bytecode)",
+     "seconds": 0.47,
+     "peak_rss_mb": 90.1
+    }
+   ],
+   "stats": {
+    "hlis": 6324,
+    "depth": 349,
+    "width": 3,
+    "llmis": 11201,
+    "total_s": 2.92,
+    "mlmis_final": 11201
+   },
+   "bytes": 1613814,
+   "masked_sha256": "485a4cc70947e17ca69d36770d526225bc32e11fd014dcb22f14f8c6dae04fa3",
+   "bin": "/home/venky_on_linux/btp_demo/out/batch/TinyJambu_small/memoryoptimized.bin",
+   "vs_original": {
+    "identical": true,
+    "differing_bytes": 64,
+    "differing_outside_key_header": 0
+   }
+  }
+ },
+ "functional": {
+  "tests": 3,
+  "n_inputs": 21,
+  "n_outputs": 7,
+  "passed": {
+   "original": 3,
+   "memoryoptimized": 3
+  },
+  "examples": [
+   {
+    "inputs_first4": [
+     "577090037",
+     "2444712010",
+     "3639700191",
+     "3445702192"
+    ],
+    "plain_C_first4": [
+     "0",
+     "2253656137",
+     "569983326",
+     "3970466021"
+    ],
+    "original_first4": [
+     "0",
+     "2253656137",
+     "569983326",
+     "3970466021"
+    ],
+    "memoryoptimized_first4": [
+     "0",
+     "2253656137",
+     "569983326",
+     "3970466021"
+    ]
+   },
+   {
+    "inputs_first4": [
+     "1674216077",
+     "1858720390",
+     "2608926326",
+     "3273968005"
+    ],
+    "plain_C_first4": [
+     "0",
+     "4112636530",
+     "2194575089",
+     "163103541"
+    ],
+    "original_first4": [
+     "0",
+     "4112636530",
+     "2194575089",
+     "163103541"
+    ],
+    "memoryoptimized_first4": [
+     "0",
+     "4112636530",
+     "2194575089",
+     "163103541"
+    ]
+   },
+   {
+    "inputs_first4": [
+     "2325348894",
+     "39534911",
+     "4033614922",
+     "3784870617"
+    ],
+    "plain_C_first4": [
+     "0",
+     "4225414487",
+     "2269601195",
+     "3003676268"
+    ],
+    "original_first4": [
+     "0",
+     "4225414487",
+     "2269601195",
+     "3003676268"
+    ],
+    "memoryoptimized_first4": [
+     "0",
+     "4225414487",
+     "2269601195",
+     "3003676268"
+    ]
+   }
+  ]
+ }
+}
