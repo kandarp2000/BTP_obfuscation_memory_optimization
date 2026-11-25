@@ -1,0 +1,62 @@
+######## 04:34:26 4. functional test suite (49 basic tests) with O1..O5
+############ OURS (OBSCURE-memopt, -opt-all -opt-o5) ############
+Compiling interpreter....................... OK
+
+Running the tests:
+  basic/add................................. OK
+  basic/and................................. OK
+  basic/array_as_input...................... OK
+  basic/array_as_input_nomod................ OK
+  basic/array_as_input_voidfun.............. OK
+  basic/array_basic......................... OK
+  basic/array_for........................... OK
+  basic/array_fun........................... OK
+  basic/array_funcall....................... OK
+  basic/array_init.......................... OK
+  basic/array_noinit_fun.................... OK
+  basic/binops.............................. OK
+  basic/bitnot.............................. OK
+  basic/cmp_eq.............................. OK
+  basic/cmp_lt.............................. OK
+  basic/compound_asgn....................... OK
+  basic/div................................. OK
+  basic/for_complex_next.................... OK
+  basic/for_simple.......................... OK
+  basic/for_with_var........................ OK
+  basic/funs................................ OK
+  basic/funs_complex........................ OK
+  basic/funs_nested_calls................... OK
+  basic/funs_twice_called................... OK
+  basic/int_hexa............................ OK
+  basic/lsl................................. OK
+  basic/lsr................................. OK
+  basic/mod................................. OK
+  basic/mul................................. OK
+  basic/nested_expr......................... OK
+  basic/nested_expr_funcall................. OK
+  basic/ptr_alias........................... OK
+  basic/ptr_alias_middle_arith.............. Flag '-width 4' was used, but the program has a width of 9. Ignoring the -width flag and continuing.
+OK
+  basic/ptr_alias_middle_array.............. OK
+  basic/ptr_alias_middle_ptr................ OK
+  basic/ptr_alias_middle_ptr_arr............ OK
+  basic/ptr_as_input........................ OK
+  basic/ptr_as_input_const.................. OK
+  basic/ptr_as_input_const_mixed............ OK
+  basic/ptr_basic........................... OK
+  basic/ptr_for............................. OK
+  basic/ptr_fun............................. OK
+  basic/ptr_late_assign..................... OK
+  basic/ptr_without_dereference............. OK
+  basic/static_var_becomes_dynamic.......... OK
+  basic/sub................................. OK
+  basic/ternary_if.......................... OK
+  basic/ternary_if_nested................... OK
+  basic/xor................................. OK
+
+Ran 49 tests: 49 OK, 0 fail
+
+
+######## 04:35:15 DONE
+
+[exited with code 0]
